@@ -3,7 +3,7 @@
   "description": "A sf plugin enabling deploy of releases that requires multi steps in order to be deployed. It supports deploy of metadata, datapacks (SFI) and shell commnads. ",
   "version": "0.0.1",
   "dependencies": {
-    "@oclif/core": "^2.8.2",
+    "@oclif/core": "^2.8.6",
     "@salesforce/core": "^3.34.8",
     "@salesforce/kit": "^3.0.1",
     "@salesforce/sf-plugins-core": "^2.4.3",
