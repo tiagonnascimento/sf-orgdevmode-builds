@@ -6,7 +6,7 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('sf-orgdevmode-builds', 'builds.deploy');
 
 export type BuildsDeployResult = {
-  path: string;
+  success: boolean;
 };
 
 export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
@@ -58,7 +58,7 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
     this.log(`username: ${flags.username}`);
 
     return {
-      path: '/Users/tnascimento/dev/sf-orgdevmode-builds/src/commands/builds/deploy.ts',
+      success: true,
     };
   }
 }

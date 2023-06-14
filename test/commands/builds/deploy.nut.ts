@@ -12,10 +12,10 @@ describe('builds deploy NUTs', () => {
     await session?.clean();
   });
 
-  it('should display provided name', () => {
-    const name = 'World';
-    const command = `builds deploy --name ${name}`;
+  it('should execute successfully', () => {
+    const command =
+      'builds deploy --buildfile package.json --target-org dev01 --client-id 123 --instance-url https://teste.com/ --jwt-key-file package.json --username teste';
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
-    expect(output).to.contain(name);
+    expect(output).to.contain('package.json');
   });
 });
