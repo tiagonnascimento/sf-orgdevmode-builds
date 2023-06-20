@@ -33,3 +33,7 @@ Username used to create the JWT.
 # examples
 
 - <%= config.bin %> <%= command.id %>
+
+# flags.teste.summary
+
+Abc.
