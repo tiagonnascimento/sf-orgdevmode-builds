@@ -58,11 +58,7 @@ export type PackageType = {
  * @param {*} args array with args
  * @param {*} workingFolder opcional
  */
-export const execCommand = function execCommandFn(
-  command: string,
-  args: string[],
-  workingFolder: string | null = null
-): void {
+export const execCommand = function (command: string, args: string[], workingFolder: string | null = null): void {
   const options: any = {
     encoding: 'utf-8',
     maxBuffer: 1024 * 1024 * 10,
@@ -104,7 +100,7 @@ export const execCommand = function execCommandFn(
   }
 };
 
-export const readBuildfile = function readBuildfileFn(path: string) {
+export const readBuildfile = function (path: string) {
   return JSON.parse(fs.readFileSync(path, 'utf8'));
 };
 export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
@@ -212,7 +208,7 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
     buildCommandArgs.push('--username');
     buildCommandArgs.push(authParms.username!);
 
-    exports.execCommand(buildCommand, buildCommandArgs);
+    execCommand(buildCommand, buildCommandArgs);
   }
 
   public static deploy(builds: Build[], username: string): void {
@@ -283,14 +279,14 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
         buildCommandArgs = tail;
       }
 
-      exports.execCommand(buildCommand!, buildCommandArgs);
+      execCommand(buildCommand!, buildCommandArgs);
     }
   }
 
   public async run(): Promise<BuildsDeployResult> {
     const { flags } = await this.parse(BuildsDeploy);
 
-    const buildManifest = exports.readBuildfile(flags.buildfile);
+    const buildManifest = readBuildfile(flags.buildfile);
     console.log(`buildfile is ${buildManifest}`);
     const builds = buildManifest.builds as Build[];
 
