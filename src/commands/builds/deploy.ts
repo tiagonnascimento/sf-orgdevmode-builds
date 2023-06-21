@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable sf-plugin/no-missing-messages */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -49,6 +51,62 @@ export type PackageType = {
   members: string[];
 };
 
+/**
+ * Exec a shell command assynchronously
+ *
+ * @param {*} command command to be executed
+ * @param {*} args array with args
+ * @param {*} workingFolder opcional
+ */
+export const execCommand = function execCommandFn(
+  command: string,
+  args: string[],
+  workingFolder: string | null = null
+): void {
+  const options: any = {
+    encoding: 'utf-8',
+    maxBuffer: 1024 * 1024 * 10,
+  };
+
+  if (workingFolder) {
+    options.cwd = workingFolder;
+  }
+
+  const cmdArgs = args ? args.join(' ') : '';
+
+  console.log(`Executing command:  ${command} ${cmdArgs}`);
+
+  const spawn: SpawnSyncReturns<string> = spawnSync(command, args, options);
+
+  console.log(`Status of execution: ${spawn.status}`);
+  let spawnOut = spawn.stdout;
+  // se resposta for JSON do sfdx, tentando limpar ela removendo caracteres de quebra de linha (\n) que o SFDX CLI pode colocar
+  // na estrutura da resposta - para conseguirmos um print decente do resultado no log
+  // eu volto a parsear como JSON a string com os caracteres removidos para poder usar o stringify com formatação
+  try {
+    spawnOut = JSON.stringify(JSON.parse(spawnOut.replace(/\\n/g, '')), null, 2);
+  } catch (e) {
+    // não faz nada... o exception só significa que o stdout não é JSON - perfeitamente possível
+  }
+  console.log(`Output: ${spawnOut}`);
+
+  if (spawn.error || spawn.status !== 0) {
+    let errorMessage = 'Error executing command!';
+    if (spawn.error) {
+      errorMessage += spawn.error;
+    }
+
+    if (spawn.stderr) {
+      errorMessage += ' ' + spawn.stderr.toString();
+    }
+    console.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+};
+
+export const readBuildfile = function readBuildfileFn(path: string) {
+  return JSON.parse(fs.readFileSync(path, 'utf8'));
+};
 export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
@@ -59,7 +117,6 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
       summary: messages.getMessage('flags.buildfile.summary'),
       char: 'b',
       required: true,
-      exists: true,
     }),
     'target-org': Flags.string({
       summary: messages.getMessage('flags.target-org.summary'),
@@ -76,7 +133,6 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
     'jwt-key-file': Flags.file({
       summary: messages.getMessage('flags.jwt-key-file.summary'),
       char: 'f',
-      exists: true,
     }),
     username: Flags.string({
       summary: messages.getMessage('flags.username.summary'),
@@ -90,7 +146,7 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
    * @param {*} baseManifestPath Path for package.xml
    * @returns JSON representation of package.xml
    */
-  private static parsePackageXml = function (manifestPath: string): Package {
+  public static parsePackageXml(manifestPath: string): Package {
     const xmlString = fs.readFileSync(manifestPath, 'utf8');
     let xmlJson!: Package;
     xml2js.parseString(xmlString, (err, res) => {
@@ -103,7 +159,7 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
     });
 
     return xmlJson;
-  };
+  }
 
   /**
    * Get the @IsTest annotated classes from package.xml
@@ -112,7 +168,7 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
    * @param {*} classesFolderPath path for Ppex classes
    * @returns List of test classes
    */
-  private static getApexTestClassesFromPackageXml = function (
+  public static getApexTestClassesFromPackageXml(
     manifestPath: string,
     classesFolderPath = 'force-app/main/default/classes'
   ): string[] {
@@ -136,58 +192,9 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
     }
 
     return apexTestClasses;
-  };
+  }
 
-  /**
-   * Exec a shell command assynchronously
-   *
-   * @param {*} command command to be executed
-   * @param {*} args array with args
-   * @param {*} workingFolder opcional
-   */
-  private static execCommand = function (command: string, args: string[], workingFolder: string | null = null): void {
-    const options: any = {
-      encoding: 'utf-8',
-      maxBuffer: 1024 * 1024 * 10,
-    };
-
-    if (workingFolder) {
-      options.cwd = workingFolder;
-    }
-
-    const cmdArgs = args ? args.join(' ') : '';
-
-    console.log(`Executing command:  ${command} ${cmdArgs}`);
-
-    const spawn: SpawnSyncReturns<string> = spawnSync(command, args, options);
-
-    console.log(`Status of execution: ${spawn.status}`);
-    let spawnOut = spawn.stdout;
-    // se resposta for JSON do sfdx, tentando limpar ela removendo caracteres de quebra de linha (\n) que o SFDX CLI pode colocar
-    // na estrutura da resposta - para conseguirmos um print decente do resultado no log
-    // eu volto a parsear como JSON a string com os caracteres removidos para poder usar o stringify com formatação
-    try {
-      spawnOut = JSON.stringify(JSON.parse(spawnOut.replace(/\\n/g, '')), null, 2);
-    } catch (e) {
-      // não faz nada... o exception só significa que o stdout não é JSON - perfeitamente possível
-    }
-    console.log(`Output: ${spawnOut}`);
-
-    if (spawn.error || spawn.status !== 0) {
-      let errorMessage = 'Error executing command!';
-      if (spawn.error) {
-        errorMessage += spawn.error;
-      }
-
-      if (spawn.stderr) {
-        errorMessage += ' ' + spawn.stderr.toString();
-      }
-      console.error(errorMessage);
-      throw new Error(errorMessage);
-    }
-  };
-
-  private static auth = function (authParms: AuthParameters): void {
+  public static auth(authParms: AuthParameters): void {
     console.log(' --- auth --- ');
     const buildCommand = 'sf' as string;
     const buildCommandArgs = [];
@@ -205,10 +212,10 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
     buildCommandArgs.push('--username');
     buildCommandArgs.push(authParms.username!);
 
-    BuildsDeploy.execCommand(buildCommand, buildCommandArgs);
-  };
+    exports.execCommand(buildCommand, buildCommandArgs);
+  }
 
-  private static deploy = function (builds: Build[], username: string): void {
+  public static deploy(builds: Build[], username: string): void {
     console.log(' --- deploy --- ');
     for (const build of builds) {
       console.log(` --- build type: ${build.type} --- `);
@@ -276,14 +283,15 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
         buildCommandArgs = tail;
       }
 
-      BuildsDeploy.execCommand(buildCommand!, buildCommandArgs);
+      exports.execCommand(buildCommand!, buildCommandArgs);
     }
-  };
+  }
 
   public async run(): Promise<BuildsDeployResult> {
     const { flags } = await this.parse(BuildsDeploy);
 
-    const buildManifest = JSON.parse(fs.readFileSync(flags.buildfile, 'utf8'));
+    const buildManifest = exports.readBuildfile(flags.buildfile);
+    console.log(`buildfile is ${buildManifest}`);
     const builds = buildManifest.builds as Build[];
 
     const authParms: AuthParameters = {

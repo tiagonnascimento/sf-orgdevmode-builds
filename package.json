@@ -68,11 +68,8 @@
       "@oclif/plugin-help"
     ],
     "topics": {
-      "hello": {
-        "description": "Commands to say hello."
-      },
       "builds": {
-        "description": "description for builds"
+        "description": "Ability to deploy multi-steps builds based on a buildfile.json"
       }
     }
   },

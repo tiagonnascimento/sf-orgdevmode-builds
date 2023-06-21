@@ -40,6 +40,15 @@
       "smartStep": true,
       "internalConsoleOptions": "openOnSessionStart",
       "preLaunchTask": "Compile tests"
+    },
+    {
+      "name": "Mocha (Test single file)",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": ["${workspaceRoot}/node_modules/.bin/mocha", "--inspect-brk", "${relativeFile}"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229
     }
   ]
 }
