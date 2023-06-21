@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import * as ChildProcess from 'child_process';
 import { expect, test } from '@oclif/test';
 import * as sinon from 'sinon';
 
@@ -8,11 +9,16 @@ import * as sinon from 'sinon';
 import BuildsDeploy, * as deploy from '../../../src/commands/builds/deploy';
 
 describe('BuildsDeploy', () => {
-  const buildManifest = {
+  const buildManifest1 = {
     builds: [
       {
         type: 'metadata',
         manifestFile: 'path/to/package.xml',
+        testLevel: 'RunSpecifiedTests',
+        preDestructiveChanges: 'path/to/preDestructiveChanges.xml',
+        postDestructiveChanges: 'path/to/postDestructiveChanges.xml',
+        ignoreWarnings: true,
+        timeout: 60,
       },
       {
         type: 'datapack',
@@ -22,11 +28,39 @@ describe('BuildsDeploy', () => {
         type: 'anonymousApex',
         apexScript: 'path/to/anonymousApex',
       },
+      {
+        type: 'command',
+        command: 'sf --version',
+      },
     ],
   };
 
-  const execCommandMock = sinon.stub(deploy, 'execCommand');
-  sinon.stub(deploy, 'readBuildfile').returns(buildManifest);
+  const buildManifest2 = {
+    builds: [
+      {
+        type: 'metadata',
+        manifestFile: 'path/to/package.xml',
+      },
+    ],
+  };
+
+  const spawnSyncReturns: ChildProcess.SpawnSyncReturns<string> = {
+    pid: 1234,
+    output: ['Stub executed successfully', null],
+    stdout: 'Stub executed successfully',
+    status: 0,
+    stderr: '',
+    signal: null,
+  };
+
+  const execSpawnSync = sinon.stub(deploy, 'execSpawnSync').returns(spawnSyncReturns);
+  const execReadFileSync = sinon.stub(deploy, 'execReadFileSync');
+  execReadFileSync.onCall(0).returns(JSON.stringify(buildManifest1));
+  execReadFileSync
+    .onCall(1)
+    .returns('<Package><types><members>BaseClassTest</members><name>ApexClass</name></types></Package>');
+  execReadFileSync.onCall(2).returns('@IsTest() public class BaseClassTest');
+  execReadFileSync.onCall(3).returns(JSON.stringify(buildManifest2));
 
   test
     .stdout()
@@ -44,10 +78,24 @@ describe('BuildsDeploy', () => {
         'path/to/server.key',
       ])
     )
-    .it('should execute the BuildsDeploy command', (ctx) => {
-      expect(execCommandMock.calledOnce).to.be.false;
-      expect(execCommandMock.firstCall.args[0]).to.equal('sf'); // auth
-      expect(execCommandMock.secondCall.args[0]).to.equal('sf'); // deploy
-      expect(execCommandMock.thirdCall.args[0]).to.equal('vlocity'); // deploy
+    .it('should execute the build with authentication', (ctx) => {
+      expect(ctx.stdout).to.contain('sf org login jwt');
+      expect(ctx.stdout).to.contain('sf project deploy start');
+      expect(ctx.stdout).to.contain('vlocity -sfdx.username');
+      expect(ctx.stdout).to.contain('sf apex run');
+      expect(ctx.stdout).to.contain('sf --version');
+      expect(execSpawnSync.calledOnce).to.be.false;
+      expect(execSpawnSync.firstCall.args[0]).to.equal('sf'); // auth
+      expect(execSpawnSync.secondCall.args[0]).to.equal('sf'); // deploy
+      expect(execSpawnSync.thirdCall.args[0]).to.equal('vlocity'); // deploy
+    });
+
+  test
+    .stdout()
+    .do(() => BuildsDeploy.run(['--buildfile', 'path/to/buildfile.json', '--target-org', 'alias']))
+    .it('should execute the build without authenticating again', (ctx) => {
+      expect(ctx.stdout).to.contain('sf project deploy start');
+      expect(ctx.stdout).to.not.contain('ausf org login jwtth');
+      expect(ctx.stdout).to.not.contain('vlocity -sfdx.username');
     });
 });

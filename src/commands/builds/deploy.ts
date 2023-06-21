@@ -52,6 +52,17 @@ export type PackageType = {
 };
 
 /**
+ * Refactoring method only to be able to stub the child_process.spawnSync
+ *
+ * @param command - command to be executed
+ * @param args - array with args
+ * @param options - options as determined on execCommand function
+ */
+export const execSpawnSync = function (command: string, args: string[], options: any) {
+  return spawnSync(command, args, options);
+};
+
+/**
  * Exec a shell command assynchronously
  *
  * @param {*} command command to be executed
@@ -72,7 +83,7 @@ export const execCommand = function (command: string, args: string[], workingFol
 
   console.log(`Executing command:  ${command} ${cmdArgs}`);
 
-  const spawn: SpawnSyncReturns<string> = spawnSync(command, args, options);
+  const spawn: SpawnSyncReturns<string> = execSpawnSync(command, args, options);
 
   console.log(`Status of execution: ${spawn.status}`);
   let spawnOut = spawn.stdout;
@@ -100,8 +111,14 @@ export const execCommand = function (command: string, args: string[], workingFol
   }
 };
 
-export const readBuildfile = function (path: string) {
-  return JSON.parse(fs.readFileSync(path, 'utf8'));
+/**
+ * Externalizing method only to be easier to mock the fs.readFileSync
+ *
+ * @param path - path of the file to be read
+ * @returns JSON representation of the file
+ */
+export const execReadFileSync = function (path: string) {
+  return fs.readFileSync(path, 'utf8');
 };
 export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
   public static readonly summary = messages.getMessage('summary');
@@ -143,7 +160,7 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
    * @returns JSON representation of package.xml
    */
   public static parsePackageXml(manifestPath: string): Package {
-    const xmlString = fs.readFileSync(manifestPath, 'utf8');
+    const xmlString = execReadFileSync(manifestPath);
     let xmlJson!: Package;
     xml2js.parseString(xmlString, (err, res) => {
       if (err) {
@@ -177,7 +194,7 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
       console.log('Apex Classes detected: ', apexClasses);
 
       apexClasses.forEach((file) => {
-        const fileContentTmp = fs.readFileSync(`${classesFolderPath}/${file}.cls`, 'utf8');
+        const fileContentTmp = execReadFileSync(`${classesFolderPath}/${file}.cls`);
 
         if (fileContentTmp.match(/@istest*/i)) {
           apexTestClasses.push(file);
@@ -286,7 +303,7 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
   public async run(): Promise<BuildsDeployResult> {
     const { flags } = await this.parse(BuildsDeploy);
 
-    const buildManifest = readBuildfile(flags.buildfile);
+    const buildManifest = JSON.parse(execReadFileSync(flags.buildfile));
     console.log(`buildfile is ${buildManifest}`);
     const builds = buildManifest.builds as Build[];
 
