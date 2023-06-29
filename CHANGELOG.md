@@ -1,3 +1,12 @@
+## [1.0.3](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.0.2...1.0.3) (2023-06-29)
+
+
+### Bug Fixes
+
+* adding pinst to not run postinstall on plugin installation ([8fa9f13](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/8fa9f136c0c539d0e52e9a17d0ed9e2bf3502d0f))
+
+
+
 ## [1.0.2](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.0.1...1.0.2) (2023-06-29)
 
 
