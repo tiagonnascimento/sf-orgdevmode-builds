@@ -303,8 +303,9 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
   public async run(): Promise<BuildsDeployResult> {
     const { flags } = await this.parse(BuildsDeploy);
 
-    const buildManifest = JSON.parse(execReadFileSync(flags.buildfile));
-    console.log(`buildfile is ${buildManifest}`);
+    const buildManifestString = execReadFileSync(flags.buildfile);
+    const buildManifest = JSON.parse(buildManifestString);
+    console.log(`buildfile is ${buildManifestString}`);
     const builds = buildManifest.builds as Build[];
 
     const authParms: AuthParameters = {
