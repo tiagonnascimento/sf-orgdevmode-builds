@@ -1,7 +1,7 @@
 {
   "name": "sf-orgdevmode-builds",
   "description": "A sf plugin enabling deploy of releases that requires multi steps in order to be deployed. It supports deploy of metadata, datapacks (SFI) and shell commnads. ",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "dependencies": {
     "@oclif/core": "^2.8.6",
     "@salesforce/core": "^3.34.8",

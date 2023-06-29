@@ -1,3 +1,12 @@
+## [1.0.2](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.0.1...1.0.2) (2023-06-29)
+
+
+### Bug Fixes
+
+* disabling husky on plugin installation ([bcda824](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/bcda8249f549a9feaabc90625662293f22978587))
+
+
+
 ## [1.0.1](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/v1.0.0-beta.0...1.0.1) (2023-06-29)
 
 
