@@ -28,7 +28,7 @@ jobs:
       - run: |
           sf-release npm:package:release \
             --githubtag ${{ github.event.release.tag_name || inputs.tag || 'latest' }} \
-            --npmtag ${{ inputs.tag || 'latest' }}
+            --npmtag ${{ inputs.tag || 'latest' }} \
             --no-install
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
