@@ -1,3 +1,7 @@
+## [1.0.5](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.0.4...1.0.5) (2023-06-30)
+
+
+
 ## [1.0.4](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.0.3...1.0.4) (2023-06-29)
 
 
@@ -25,16 +29,12 @@
 
 
 
-## [1.0.1](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/v1.0.0-beta.0...1.0.1) (2023-06-29)
+## [1.0.1](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.0.0-beta.0...1.0.1) (2023-06-29)
 
 
 ### Bug Fixes
 
 * adjusting release script ([2eb95af](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/2eb95af20604ec4dd7b33364efeaf5ba6dd3c7e7))
-
-
-
-# [1.0.0-beta.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.0.0-beta.0...v1.0.0-beta.0) (2023-06-29)
 
 
 ### Features
