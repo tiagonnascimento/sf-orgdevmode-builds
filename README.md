@@ -62,6 +62,16 @@ EXAMPLES
 
 <!-- commandsstop -->
 
+## Authentication & Authorization
+
+The plugin offers two ways to authenticate and authorize in the target org: either by executing it with the `--target-org` parameter to use a previously existing authorization, or by providing specific parameters for authentication.
+
+When executed with the `--target-org` parameter, authentication and authorization are skipped, and deployments use the specified username/alias. Otherwise, you need to provide the `--client-id`, `--instance-url`, `--username`, and `--jwt-key-file` parameters.
+
+In the latter case, the plugin leverages the [JWT Bearer Flow](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth_jwt_flow.htm) for authorization in the target org. Only that it utilizes the new sf CLI commands, rather than the legacy sfdx commands. It utilizes the `sf org login jwt` command, as described [here](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_org_commands_unified.htm#cli_reference_org_login_jwt_unified).
+
+To implement this, you'll need to use [OpenSSL to create the key and a self-signed certificate](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth_key_and_cert.htm) and [create a connected app, configuring it for Salesforce DX](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth_connected_app.htm). Keep in mind that the private key must be kept secure, as anyone with access can log into the org. It can be stored as an encrypted file within the repository or as a secret, and should be provided to the plugin using the `--jwt-key-file` parameter.
+
 ## File: buildfile.json
 
 Each release is a different release. It may be necessary to perform deployments that resolve dependencies before deploying the main package. It may be necessary to apply Salesforce Industries/Vlocity datapacks before or after the package. It may be necessary to run APEX scripts that will create reference data before or after the main package. All these nuances are captured by the file located at build/buildfile.json. Here is an example of how to fill in this file:
