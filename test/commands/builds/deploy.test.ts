@@ -40,6 +40,16 @@ describe('BuildsDeploy', () => {
       {
         type: 'metadata',
         manifestFile: 'path/to/package.xml',
+        testLevel: 'NoTestRun',
+      },
+    ],
+  };
+
+  const buildManifest3 = {
+    builds: [
+      {
+        type: 'metadata',
+        manifestFile: 'path/to/package.xml',
       },
     ],
   };
@@ -61,6 +71,7 @@ describe('BuildsDeploy', () => {
     .returns('<Package><types><members>BaseClassTest</members><name>ApexClass</name></types></Package>');
   execReadFileSync.onCall(2).returns('@IsTest() public class BaseClassTest');
   execReadFileSync.onCall(3).returns(JSON.stringify(buildManifest2));
+  execReadFileSync.onCall(4).returns(JSON.stringify(buildManifest3));
 
   test
     .stdout()
@@ -93,9 +104,20 @@ describe('BuildsDeploy', () => {
   test
     .stdout()
     .do(() => BuildsDeploy.run(['--buildfile', 'path/to/buildfile.json', '--target-org', 'alias']))
-    .it('should execute the build without authenticating again', (ctx) => {
+    .it('should execute the build without authenticating again with test level defined', (ctx) => {
       expect(ctx.stdout).to.contain('sf project deploy start');
-      expect(ctx.stdout).to.not.contain('ausf org login jwtth');
+      expect(ctx.stdout).to.contain('NoTestRun');
+      expect(ctx.stdout).to.not.contain('sf org login jwt');
+      expect(ctx.stdout).to.not.contain('vlocity -sfdx.username');
+    });
+
+  test
+    .stdout()
+    .do(() => BuildsDeploy.run(['--buildfile', 'path/to/buildfile.json', '--target-org', 'alias']))
+    .it('should execute the build without authenticating again and without test level defined on buildfile', (ctx) => {
+      expect(ctx.stdout).to.contain('sf project deploy start');
+      expect(ctx.stdout).to.contain('RunLocalTest');
+      expect(ctx.stdout).to.not.contain('sf org login jwt');
       expect(ctx.stdout).to.not.contain('vlocity -sfdx.username');
     });
 });
