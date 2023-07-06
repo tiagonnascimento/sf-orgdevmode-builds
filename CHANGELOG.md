@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.0.6...1.1.0) (2023-07-06)
+
+
+### Features
+
+* adding support to execute deploy with NoTestRun ([4c4779d](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/4c4779df5771016a89ce06b71ca985c287cdc577))
+
+
+
 ## [1.0.6](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.0.5...1.0.6) (2023-06-30)
 
 
