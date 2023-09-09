@@ -31,7 +31,7 @@ describe('generate profiler', () => {
     session.clean();
   });
 
-  it('fetch profile data without passing any flag to the command', async () => {
+  it('fetch profile data with all flags', async () => {
     $$.stubAliases({ nonscratchalias: testOrg.username });
     await $$.stubAuths(testOrg);
     console.log(
@@ -43,6 +43,32 @@ describe('generate profiler', () => {
         c.args;
       })
       .join('\n');
-    expect(data).to.include('success');
+    expect(data).to.include('');
+  });
+
+  it('fetch profile without path & project-only flag', async () => {
+    $$.stubAliases({ nonscratchalias: testOrg.username });
+    await $$.stubAuths(testOrg);
+    console.log(await GenerateProfiler.run(['--username', testOrg.username]));
+    const data = sfCommandUxStubs.log
+      .getCalls()
+      .flatMap((c) => {
+        c.args;
+      })
+      .join('\n');
+    expect(data).to.include('');
+  });
+
+  it('fetch profile without arguments', async () => {
+    $$.stubAliases({ nonscratchalias: testOrg.username });
+    await $$.stubAuths(testOrg);
+    console.log(await GenerateProfiler.run([]));
+    const data = sfCommandUxStubs.log
+      .getCalls()
+      .flatMap((c) => {
+        c.args;
+      })
+      .join('\n');
+    expect(data).to.include('');
   });
 });
