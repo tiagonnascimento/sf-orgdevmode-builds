@@ -251,9 +251,6 @@ export default class Profiler extends SfCommand<ProfilerResult> {
         })
         .then(() => {
           Profiler.buildManifest(params)
-            .then((result) => {
-              console.log(result);
-            })
             .then(() => {
               Profiler.fetchProfileData()
                 .then(() => {
@@ -273,9 +270,6 @@ export default class Profiler extends SfCommand<ProfilerResult> {
         });
     } else {
       Profiler.buildManifest(params)
-        .then((result) => {
-          console.log(result);
-        })
         .then(() => {
           Profiler.fetchProfileData()
             .then(() => {
