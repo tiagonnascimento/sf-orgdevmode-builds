@@ -10,9 +10,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/quotes */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { promises as fs } from 'fs';
 import { spawnSync, SpawnSyncReturns } from 'child_process';
-// import * as getPath from 'path';
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 
@@ -62,7 +62,7 @@ export const execCommand = function (command: string, args: string[]) {
 
   const spawn: SpawnSyncReturns<string> = execSpawnSync(command, args, options);
   return new Promise((resolve, reject) => {
-    if (spawn.error || spawn.status !== 0) {
+    if (spawn.error ?? spawn.status !== 0) {
       let errorMessage = 'Error executing command: ';
       if (spawn.error) {
         errorMessage += spawn.error;
@@ -127,7 +127,7 @@ export default class Profiler extends SfCommand<ProfilerResult> {
         this.projectPath = path;
         commandParams = [];
         baseCommandLine = 'sf';
-        if (params['project-only'] === 'true' || params['project-only'] === 'TRUE') {
+        if (params['project-only'] === 'true' ?? params['project-only'] === 'TRUE') {
           commandParams = ['project', 'generate', 'manifest', '--source-dir', path];
         } else {
           commandParams = ['project', 'generate', 'manifest', '--from-org', params.username];
