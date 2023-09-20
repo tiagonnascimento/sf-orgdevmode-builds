@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_rating_hot_for_banca_patrimonial</fullName>
+    <active>true</active>
+    <description>return error before save</description>
+    <errorConditionFormula>AND(
+   ISPICKVAL(Rating, &apos;Hot&apos;),
+    RecordType.Name = &apos;Banca Patrimonial&apos;
+)</errorConditionFormula>
+    <errorDisplayField>Rating</errorDisplayField>
+    <errorMessage>la banca patrimonial no puede tener un valor de hot en rating</errorMessage>
+</ValidationRule>

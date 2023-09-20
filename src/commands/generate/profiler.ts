@@ -200,19 +200,19 @@ export default class Profiler extends SfCommand<ProfilerResult> {
 
   private static cleanProject() {
     const baseCommand = 'git';
-    let commandParams = ['clean', '-f', 'force-app'];
+    let commandParams = ['add', 'force-app/default/main/profiles'];
     execCommand(baseCommand, commandParams)
       .then(() => {
-        commandParams = ['add', 'force-app/default/main/profiles'];
+        commandParams = ['clean', '-f', 'force-app'];
         execCommand(baseCommand, commandParams)
           .then(() => {
             commandParams = ['checkout', '--', 'force-app'];
             execCommand(baseCommand, commandParams)
               .then(() => {
-                commandParams = ['restore', '--staged', 'force-app'];
+                commandParams = ['clean', '-f'];
                 execCommand(baseCommand, commandParams)
                   .then(() => {
-                    commandParams = ['clean', '-f'];
+                    commandParams = ['restore', '--staged', 'force-app'];
                     execCommand(baseCommand, commandParams).catch((err) => {
                       console.error(err);
                     });
