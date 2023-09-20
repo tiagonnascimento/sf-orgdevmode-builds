@@ -9,6 +9,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import * as fs from 'fs';
 import { spawnSync, SpawnSyncReturns } from 'child_process';
 import * as xml2js from 'xml2js';
@@ -97,14 +98,14 @@ export const execCommand = function (command: string, args: string[], workingFol
   }
   console.log(`Output: ${spawnOut}`);
 
-  if (spawn.error || spawn.status !== 0) {
+  if (spawn.error ?? spawn.status !== 0) {
     let errorMessage = 'Error executing command!';
     if (spawn.error) {
       errorMessage += spawn.error;
     }
 
     if (spawn.stderr) {
-      errorMessage += ' ' + spawn.stderr.toString();
+      errorMessage += ' '.concat(spawn.stderr.toString());
     }
     console.error(errorMessage);
     throw new Error(errorMessage);

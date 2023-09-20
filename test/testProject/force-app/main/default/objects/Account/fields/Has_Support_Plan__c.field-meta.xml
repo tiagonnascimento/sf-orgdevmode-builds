@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Has_Support_Plan__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Sales users use this field to indicate to Support which customers have support plans.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Does this customer have a current support plan? Check this box when you sell a support plan to this customer.</inlineHelpText>
+    <label>Has Support Plan</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>
