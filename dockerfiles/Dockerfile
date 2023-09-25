@@ -17,6 +17,9 @@ RUN npm install --global @salesforce/cli@${SF_CLI_VERSION}
 RUN npm install --global vlocity
 RUN echo "y" | sf plugins install sf-orgdevmode-builds
 
+RUN npm config set @omnistudio:registry https://repo.vlocity.com/repository/vlocity-public/
+RUN npm config set @vlocity-cme:registry https://repo.vlocity.com/repository/vlocity-public/
+
 RUN apt-get update && apt-get install --assume-yes openjdk-11-jdk-headless jq
 RUN apt-get autoremove --assume-yes \
   && apt-get clean --assume-yes \
