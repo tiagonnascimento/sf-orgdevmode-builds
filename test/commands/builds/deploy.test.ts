@@ -19,6 +19,7 @@ describe('BuildsDeploy', () => {
         postDestructiveChanges: 'path/to/postDestructiveChanges.xml',
         ignoreWarnings: true,
         timeout: 60,
+        enableTracking: true,
       },
       {
         type: 'datapack',

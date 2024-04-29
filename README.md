@@ -87,7 +87,8 @@ Each release is a different release. It may be necessary to perform deployments 
       "preDestructiveChanges": "manifest/preDestructive/destructiveChanges.xml",
       "postDestructiveChanges": "manifest/postDestructive/destructiveChanges.xml",
       "timeout": "33",
-      "ignoreWarnings": true
+      "ignoreWarnings": true,
+      "disableTracking": true
     },
     {
       "type": "datapack",
@@ -112,6 +113,7 @@ Some considerations regarding this configuration file:
   - If the project has multiple metadata directories (after all, an SFDX project can have other metadata directories in addition to `force-app/main/default`), the classPath parameter must be specified when the `testLevel` is set to `RunSpecifiedTests`. Otherwise, test classes will only be searched in the default directory;
   - All other parameters are optional, including pre/post destructive changes;
   - If the `testLevel` is not specified, the script will deploy using `RunLocalTests`;
+  - Normally on your pipeline sandboxes you will deploy using `enableTracking` as a `false` - which is the default value. If you want to use source tracking you can use this value as `true`;
 - For other types of deployments:
   - If `type` is `datapack`, the `manifestFile` field is required;
   - If `type` is `anonymousApex`, the `apexScript` field is required;

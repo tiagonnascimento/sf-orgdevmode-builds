@@ -35,6 +35,7 @@ export type Build = {
   preDestructiveChanges?: string;
   postDestructiveChanges?: string;
   testLevel?: string;
+  enableTracking?: string;
   classPath?: string;
   ignoreWarnings?: boolean;
   timeout?: string;
@@ -209,98 +210,109 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
 
   public static auth(authParms: AuthParameters): void {
     console.log(' --- auth --- ');
-    const buildCommand = 'sf' as string;
-    const buildCommandArgs = [];
+    const authCommand = 'sf' as string;
+    const authCommandArgs = [];
     const instanceURL = authParms.instanceUrl ? authParms.instanceUrl.toString() : 'https://login.salesforce.com';
 
-    buildCommandArgs.push('org');
-    buildCommandArgs.push('login');
-    buildCommandArgs.push('jwt');
-    buildCommandArgs.push('--instance-url');
-    buildCommandArgs.push(instanceURL);
-    buildCommandArgs.push('--client-id');
-    buildCommandArgs.push(authParms.clientId!);
-    buildCommandArgs.push('--jwt-key-file');
-    buildCommandArgs.push(authParms.jwtKeyFile!);
-    buildCommandArgs.push('--username');
-    buildCommandArgs.push(authParms.username!);
+    authCommandArgs.push('org');
+    authCommandArgs.push('login');
+    authCommandArgs.push('jwt');
+    authCommandArgs.push('--instance-url');
+    authCommandArgs.push(instanceURL);
+    authCommandArgs.push('--client-id');
+    authCommandArgs.push(authParms.clientId!);
+    authCommandArgs.push('--jwt-key-file');
+    authCommandArgs.push(authParms.jwtKeyFile!);
+    authCommandArgs.push('--username');
+    authCommandArgs.push(authParms.username!);
 
-    execCommand(buildCommand, buildCommandArgs);
+    execCommand(authCommand, authCommandArgs);
   }
 
-  public static deploy(builds: Build[], username: string): void {
-    console.log(' --- deploy --- ');
-    for (const build of builds) {
-      console.log(` --- build type: ${build.type} --- `);
-      let buildCommand: string;
-      let buildCommandArgs: string[] = [];
+  public static disableTracking(username: string): void {
+    console.log(' --- disabling source tracking on target sandbox --- ');
+    const configCommand = 'sf' as string;
+    const configCommandArgs: string[] = [];
+    configCommandArgs.push('org');
+    configCommandArgs.push('disable');
+    configCommandArgs.push('tracking');
+    configCommandArgs.push('--target-org');
+    configCommandArgs.push(username);
 
-      if (build.type === 'metadata') {
-        buildCommand = 'sf';
-        buildCommandArgs.push('project');
-        buildCommandArgs.push('deploy');
-        buildCommandArgs.push('start');
-        buildCommandArgs.push('--verbose');
-        buildCommandArgs.push('--manifest');
-        buildCommandArgs.push(build.manifestFile!);
-        buildCommandArgs.push('--target-org');
-        buildCommandArgs.push(username);
-        if (build.preDestructiveChanges) {
-          buildCommandArgs.push('--pre-destructive-changes');
-          buildCommandArgs.push(build.preDestructiveChanges);
-        }
-        if (build.postDestructiveChanges) {
-          buildCommandArgs.push('--post-destructive-changes');
-          buildCommandArgs.push(build.postDestructiveChanges);
-        }
-        if (build.testLevel === 'RunSpecifiedTests') {
-          const testClasses = BuildsDeploy.getApexTestClassesFromPackageXml(build.manifestFile!, build.classPath);
-          if (testClasses.length === 0) {
-            throw new Error('You should have at least one test class on your package.xml');
-          }
-          buildCommandArgs.push('--test-level');
-          buildCommandArgs.push('RunSpecifiedTests');
-          buildCommandArgs.push('--tests');
-          buildCommandArgs.push(testClasses.join(','));
-        } else if (build.testLevel) {
-          buildCommandArgs.push('--test-level');
-          buildCommandArgs.push(build.testLevel);
-        } else {
-          buildCommandArgs.push('--test-level');
-          buildCommandArgs.push('RunLocalTests');
-        }
-        if (build.ignoreWarnings) {
-          buildCommandArgs.push('--ignore-warnings');
-        }
-        if (build.timeout) {
-          buildCommandArgs.push('--wait');
-          buildCommandArgs.push(build.timeout);
-        }
-        buildCommandArgs.push('--json');
-      } else if (build.type === 'datapack') {
-        buildCommand = 'vlocity';
-        buildCommandArgs.push('-sfdx.username');
-        buildCommandArgs.push(username);
-        buildCommandArgs.push('-job');
-        buildCommandArgs.push(build.manifestFile!);
-        buildCommandArgs.push('packDeploy');
-      } else if (build.type === 'anonymousApex') {
-        buildCommand = 'sf';
-        buildCommandArgs.push('apex');
-        buildCommandArgs.push('run');
-        buildCommandArgs.push('--target-org');
-        buildCommandArgs.push(username);
-        buildCommandArgs.push('--file');
-        buildCommandArgs.push(build.apexScript!);
-        buildCommandArgs.push('--json');
-      } else if (build.type === 'command') {
-        const [head, ...tail] = build.command!.split(' ');
-        buildCommand = head;
-        buildCommandArgs = tail;
+    execCommand(configCommand, configCommandArgs);
+  }
+
+  public static deploy(build: Build, username: string): void {
+    console.log(` --- build type: ${build.type} --- `);
+
+    let buildCommand: string;
+    let buildCommandArgs: string[] = [];
+
+    if (build.type === 'metadata') {
+      buildCommand = 'sf';
+      buildCommandArgs.push('project');
+      buildCommandArgs.push('deploy');
+      buildCommandArgs.push('start');
+      buildCommandArgs.push('--verbose');
+      buildCommandArgs.push('--manifest');
+      buildCommandArgs.push(build.manifestFile!);
+      buildCommandArgs.push('--target-org');
+      buildCommandArgs.push(username);
+      if (build.preDestructiveChanges) {
+        buildCommandArgs.push('--pre-destructive-changes');
+        buildCommandArgs.push(build.preDestructiveChanges);
       }
-
-      execCommand(buildCommand!, buildCommandArgs);
+      if (build.postDestructiveChanges) {
+        buildCommandArgs.push('--post-destructive-changes');
+        buildCommandArgs.push(build.postDestructiveChanges);
+      }
+      if (build.testLevel === 'RunSpecifiedTests') {
+        const testClasses = BuildsDeploy.getApexTestClassesFromPackageXml(build.manifestFile!, build.classPath);
+        if (testClasses.length === 0) {
+          throw new Error('You should have at least one test class on your package.xml');
+        }
+        buildCommandArgs.push('--test-level');
+        buildCommandArgs.push('RunSpecifiedTests');
+        buildCommandArgs.push('--tests');
+        buildCommandArgs.push(testClasses.join(','));
+      } else if (build.testLevel) {
+        buildCommandArgs.push('--test-level');
+        buildCommandArgs.push(build.testLevel);
+      } else {
+        buildCommandArgs.push('--test-level');
+        buildCommandArgs.push('RunLocalTests');
+      }
+      if (build.ignoreWarnings) {
+        buildCommandArgs.push('--ignore-warnings');
+      }
+      if (build.timeout) {
+        buildCommandArgs.push('--wait');
+        buildCommandArgs.push(build.timeout);
+      }
+      buildCommandArgs.push('--json');
+    } else if (build.type === 'datapack') {
+      buildCommand = 'vlocity';
+      buildCommandArgs.push('-sfdx.username');
+      buildCommandArgs.push(username);
+      buildCommandArgs.push('-job');
+      buildCommandArgs.push(build.manifestFile!);
+      buildCommandArgs.push('packDeploy');
+    } else if (build.type === 'anonymousApex') {
+      buildCommand = 'sf';
+      buildCommandArgs.push('apex');
+      buildCommandArgs.push('run');
+      buildCommandArgs.push('--target-org');
+      buildCommandArgs.push(username);
+      buildCommandArgs.push('--file');
+      buildCommandArgs.push(build.apexScript!);
+      buildCommandArgs.push('--json');
+    } else if (build.type === 'command') {
+      const [head, ...tail] = build.command!.split(' ');
+      buildCommand = head;
+      buildCommandArgs = tail;
     }
+
+    execCommand(buildCommand!, buildCommandArgs);
   }
 
   public async run(): Promise<BuildsDeployResult> {
@@ -332,7 +344,13 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
     }
 
     try {
-      BuildsDeploy.deploy(builds, userNameOrAlias);
+      console.log(' --- deploy --- ');
+      for (const build of builds) {
+        if (build.type === 'metadata' && !build.enableTracking) {
+          BuildsDeploy.disableTracking(userNameOrAlias);
+        }
+        BuildsDeploy.deploy(build, userNameOrAlias);
+      }
     } catch (error) {
       console.error('Error trying to run the build');
       console.error(error);
