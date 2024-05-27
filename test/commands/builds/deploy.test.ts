@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import * as ChildProcess from 'child_process';
+import * as ChildProcess from 'node:child_process';
 import { expect, test } from '@oclif/test';
 import * as sinon from 'sinon';
 

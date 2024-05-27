@@ -9,8 +9,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import * as fs from 'fs';
-import { spawnSync, SpawnSyncReturns } from 'child_process';
+import * as fs from 'node:fs';
+import { spawnSync, SpawnSyncReturns } from 'node:child_process';
 import * as xml2js from 'xml2js';
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
