@@ -55,6 +55,19 @@ describe('BuildsDeploy', () => {
     ],
   };
 
+  const buildManifest4 = {
+    builds: [
+      {
+        type: 'metadata',
+        manifestFile: 'path/to/package.xml',
+        testLevel: 'RunSpecifiedTests',
+        ignoreWarnings: true,
+        timeout: 60,
+        enableTracking: true,
+      },
+    ],
+  };
+
   const spawnSyncReturns: ChildProcess.SpawnSyncReturns<string> = {
     pid: 1234,
     output: ['Stub executed successfully', null],
@@ -73,6 +86,14 @@ describe('BuildsDeploy', () => {
   execReadFileSync.onCall(2).returns('@IsTest() public class BaseClassTest');
   execReadFileSync.onCall(3).returns(JSON.stringify(buildManifest2));
   execReadFileSync.onCall(4).returns(JSON.stringify(buildManifest3));
+  execReadFileSync.onCall(5).returns(JSON.stringify(buildManifest4));
+  execReadFileSync
+    .onCall(6)
+    .returns(
+      '<Package><types><members>BaseClass1Test</members><members>BaseClass2Test</members><name>ApexClass</name></types></Package>'
+    );
+  execReadFileSync.onCall(7).returns('@IsTest() public class BaseClass1Test');
+  execReadFileSync.onCall(8).returns('@IsTest() public class BaseClass2Test');
 
   test
     .stdout()
@@ -118,6 +139,17 @@ describe('BuildsDeploy', () => {
     .it('should execute the build without authenticating again and without test level defined on buildfile', (ctx) => {
       expect(ctx.stdout).to.contain('sf project deploy start');
       expect(ctx.stdout).to.contain('RunLocalTest');
+      expect(ctx.stdout).to.not.contain('sf org login jwt');
+      expect(ctx.stdout).to.not.contain('vlocity -sfdx.username');
+    });
+
+  test
+    .stdout()
+    .do(() => BuildsDeploy.run(['--buildfile', 'path/to/buildfile.json', '--target-org', 'alias']))
+    .it('should execute the build without authenticating again and with test level defined on buildfile', (ctx) => {
+      expect(ctx.stdout).to.contain('sf project deploy start');
+      expect(ctx.stdout).to.contain('RunSpecifiedTests');
+      expect(ctx.stdout).to.contain('--tests BaseClass1Test BaseClass2Test');
       expect(ctx.stdout).to.not.contain('sf org login jwt');
       expect(ctx.stdout).to.not.contain('vlocity -sfdx.username');
     });

@@ -274,7 +274,7 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
         buildCommandArgs.push('--test-level');
         buildCommandArgs.push('RunSpecifiedTests');
         buildCommandArgs.push('--tests');
-        buildCommandArgs.push(testClasses.join(','));
+        buildCommandArgs.push(testClasses.join(' '));
       } else if (build.testLevel) {
         buildCommandArgs.push('--test-level');
         buildCommandArgs.push(build.testLevel);
