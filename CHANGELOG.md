@@ -1,3 +1,12 @@
+# [1.4.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.3.0...1.4.0) (2024-05-28)
+
+
+### Features
+
+* adding outputFormat parameter on buildfile and fixing the bug with test classes args ([be53759](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/be53759e546f088e0ecd64c47b42e71c00e4422c))
+
+
+
 # [1.3.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.2.0...1.3.0) (2024-05-27)
 
 
@@ -41,10 +50,6 @@
 
 
 ## [1.0.6](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.0.5...1.0.6) (2023-06-30)
-
-
-
-## [1.0.5](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.0.4...1.0.5) (2023-06-30)
 
 
 
