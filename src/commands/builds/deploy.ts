@@ -41,6 +41,7 @@ export type Build = {
   timeout?: string;
   apexScript?: string;
   command?: string;
+  outputFormat?: string;
 };
 
 export type Package = {
@@ -274,7 +275,7 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
         buildCommandArgs.push('--test-level');
         buildCommandArgs.push('RunSpecifiedTests');
         buildCommandArgs.push('--tests');
-        buildCommandArgs.push(testClasses.join(' '));
+        buildCommandArgs = buildCommandArgs.concat(testClasses);
       } else if (build.testLevel) {
         buildCommandArgs.push('--test-level');
         buildCommandArgs.push(build.testLevel);
@@ -289,7 +290,9 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
         buildCommandArgs.push('--wait');
         buildCommandArgs.push(build.timeout);
       }
-      buildCommandArgs.push('--json');
+      if (build.outputFormat === 'json') {
+        buildCommandArgs.push('--json');
+      }
     } else if (build.type === 'datapack') {
       buildCommand = 'vlocity';
       buildCommandArgs.push('-sfdx.username');
