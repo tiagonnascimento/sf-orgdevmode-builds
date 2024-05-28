@@ -88,7 +88,8 @@ Each release is a different release. It may be necessary to perform deployments 
       "postDestructiveChanges": "manifest/postDestructive/destructiveChanges.xml",
       "timeout": "33",
       "ignoreWarnings": true,
-      "disableTracking": true
+      "disableTracking": true,
+      "outputFormat": "json"
     },
     {
       "type": "datapack",
@@ -114,6 +115,7 @@ Some considerations regarding this configuration file:
   - All other parameters are optional, including pre/post destructive changes;
   - If the `testLevel` is not specified, the script will deploy using `RunLocalTests`;
   - Normally on your pipeline sandboxes you will deploy using `enableTracking` as a `false` - which is the default value. If you want to use source tracking you can use this value as `true`;
+  - `outputFormat` is an optional parameter and the only acceptable value is json. If informed, the `--json` will be append in the `sf project deploy start` command. Please, be aware that if the deployment is big, this output format could impact the maxBuffer size of the command output and fail the process.
 - For other types of deployments:
   - If `type` is `datapack`, the `manifestFile` field is required;
   - If `type` is `anonymousApex`, the `apexScript` field is required;
