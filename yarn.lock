@@ -8331,17 +8331,6 @@ wireit@^0.14.4:
     jsonc-parser "^3.0.0"
     proper-lockfile "^4.1.2"
 
-wireit@^0.9.5:
-  version "0.9.5"
-  resolved "https://registry.npmjs.org/wireit/-/wireit-0.9.5.tgz"
-  integrity sha512-dKKNAwLxQjbPPMrltPxMUFKvLy2z6hlVjvR/qitvPm8GEQyb/1QYBG7ObvOQLsi95uAXpkWLJXBYkCKeVcMVgA==
-  dependencies:
-    braces "^3.0.2"
-    chokidar "^3.5.3"
-    fast-glob "^3.2.11"
-    jsonc-parser "^3.0.0"
-    proper-lockfile "^4.1.2"
-
 wordwrap@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/wordwrap/-/wordwrap-1.0.0.tgz"
