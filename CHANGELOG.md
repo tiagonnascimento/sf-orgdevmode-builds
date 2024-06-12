@@ -1,3 +1,13 @@
+## [1.4.2](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.4.0...1.4.2) (2024-06-12)
+
+
+### Bug Fixes
+
+* bypassing husky installation if fails ([9324c5c](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/9324c5c2049c817a43833e72dd6c5b54e2ca3f0d))
+* **deps:** bump @oclif/core from 2.15.0 to 2.16.0 ([6856411](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/68564115dc304616466ea88bde907abba6814cea))
+
+
+
 # [1.4.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.3.0...1.4.0) (2024-05-28)
 
 
@@ -46,10 +56,6 @@
 ### Features
 
 * adding support to execute deploy with NoTestRun ([4c4779d](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/4c4779df5771016a89ce06b71ca985c287cdc577))
-
-
-
-## [1.0.6](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.0.5...1.0.6) (2023-06-30)
 
 
 
