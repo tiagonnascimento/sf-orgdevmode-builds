@@ -84,8 +84,6 @@
     "format": "wireit",
     "lint": "wireit",
     "postinstall": "yarn husky install || true",
-    "postpack": "pinst --enable && shx rm -f oclif.manifest.json",
-    "prepack": "pinst --disable && sf-prepack",
     "test": "wireit",
     "test:nuts": "echo NO NUTS for now",
     "test:only": "wireit",
