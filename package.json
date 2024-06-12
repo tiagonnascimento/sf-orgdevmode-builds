@@ -7,7 +7,6 @@
     "@salesforce/core": "^3.34.8",
     "@salesforce/kit": "^3.1.2",
     "@salesforce/sf-plugins-core": "^2.4.3",
-    "pinst": "^3.0.0",
     "tslib": "^2"
   },
   "devDependencies": {
@@ -84,8 +83,6 @@
     "format": "wireit",
     "lint": "wireit",
     "postinstall": "yarn husky install || true",
-    "postpack": "pinst --enable && shx rm -f oclif.manifest.json",
-    "prepack": "pinst --disable && sf-prepack",
     "test": "wireit",
     "test:nuts": "echo NO NUTS for now",
     "test:only": "wireit",
