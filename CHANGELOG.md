@@ -1,3 +1,14 @@
+## [1.4.3](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.4.2...1.4.3) (2024-06-12)
+
+
+### Bug Fixes
+
+* removing pinst from dependencies ([d12d798](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/d12d7987e914a6c20b12c8ddb85b2591ab1546cb))
+* removing pinst from the dependencies ([59aa954](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/59aa954bb9b2dc87523ce94c9c55b39a2b35045c))
+* trying a different approach for postinstall ([20e4c48](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/20e4c48764891a44c8e6e285e209cd82dbb61c5a))
+
+
+
 ## [1.4.2](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.4.0...1.4.2) (2024-06-12)
 
 
@@ -47,15 +58,6 @@
 * added SFI registry entries to enable local "compile" of LWC Omniscript/Flexcards ([1efaa3a](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/1efaa3afada38ba5a46ddf6019107d350f500736))
 * adding the possibility to disable source tracking before deploy ([fb8d790](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/fb8d790dac6969f3de7e17d5d2a18b93f00fd476))
 * updating SF cli to latest verson and removing sfdx that's now contained on sf cli ([b98e491](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/b98e4913597ce14c9ff4bdeaa6058d79d4bdcaff))
-
-
-
-# [1.1.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.0.6...1.1.0) (2023-07-06)
-
-
-### Features
-
-* adding support to execute deploy with NoTestRun ([4c4779d](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/4c4779df5771016a89ce06b71ca985c287cdc577))
 
 
 
