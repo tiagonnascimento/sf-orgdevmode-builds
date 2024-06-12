@@ -1,7 +1,7 @@
 {
   "name": "sf-orgdevmode-builds",
   "description": "A sf plugin enabling deploy of releases that requires multi steps in order to be deployed. It supports deploy of metadata, datapacks (SFI) and shell commnads. ",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "dependencies": {
     "@oclif/core": "^2.16.0",
     "@salesforce/core": "^3.34.8",
@@ -83,7 +83,7 @@
     "docs": "sf-docs",
     "format": "wireit",
     "lint": "wireit",
-    "postinstall": "yarn husky install",
+    "postinstall": "yarn husky install || true",
     "postpack": "pinst --enable && shx rm -f oclif.manifest.json",
     "prepack": "pinst --disable && sf-prepack",
     "test": "wireit",
