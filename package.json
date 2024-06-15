@@ -15,7 +15,7 @@
     "@salesforce/dev-config": "^4.0.1",
     "@salesforce/dev-scripts": "^9.1.2",
     "@salesforce/prettier-config": "^0.0.3",
-    "@salesforce/ts-sinon": "^1.4.19",
+    "@salesforce/ts-sinon": "^1.4.20",
     "@swc/core": "^1.5.28",
     "@types/inquirer": "^9.0.7",
     "@types/xml2js": "^0.4.14",
