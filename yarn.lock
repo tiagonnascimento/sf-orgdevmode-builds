@@ -1119,14 +1119,14 @@
     chalk "^4"
     inquirer "^8.2.5"
 
-"@salesforce/ts-sinon@^1.4.19":
-  version "1.4.19"
-  resolved "https://registry.npmjs.org/@salesforce/ts-sinon/-/ts-sinon-1.4.19.tgz"
-  integrity sha512-vopxKrI6QD0OCtPlge1eGGHFWLkoDee7KaB/dpGeRwioeNfCVJ8ikELN0hv0zq9Ys6gUYWYcdpxzTP1upslCJA==
+"@salesforce/ts-sinon@^1.4.26":
+  version "1.4.26"
+  resolved "https://registry.yarnpkg.com/@salesforce/ts-sinon/-/ts-sinon-1.4.26.tgz#f91b95fbf3b2c7414a779a633b6e3a6e3fbbe338"
+  integrity sha512-SLCD1nOurnh++BWSQJ/jp0PQwGZNpPKAdtXA7NZDnRvcB1389lxCQg7+sPa/ZdM4gZlN65lsoKBgiAboLwhTxw==
   dependencies:
-    "@salesforce/ts-types" "^2.0.9"
+    "@salesforce/ts-types" "^2.0.12"
     sinon "^5.1.1"
-    tslib "^2.6.1"
+    tslib "^2.7.0"
 
 "@salesforce/ts-types@^1.7.2", "@salesforce/ts-types@^1.7.3":
   version "1.7.3"
