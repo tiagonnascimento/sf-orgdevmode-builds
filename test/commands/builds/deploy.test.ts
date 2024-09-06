@@ -6,7 +6,8 @@ import { expect, test } from '@oclif/test';
 import * as sinon from 'sinon';
 
 // Import the BuildsDeploy command class
-import BuildsDeploy, * as deploy from '../../../src/commands/builds/deploy';
+import BuildsDeploy from '../../../src/commands/builds/deploy';
+import BuildsUtils from '../../../src/modules/utils';
 
 describe('BuildsDeploy', () => {
   const buildManifest1 = {
@@ -77,8 +78,8 @@ describe('BuildsDeploy', () => {
     signal: null,
   };
 
-  const execSpawnSync = sinon.stub(deploy, 'execSpawnSync').returns(spawnSyncReturns);
-  const execReadFileSync = sinon.stub(deploy, 'execReadFileSync');
+  const execSpawnSync = sinon.stub(BuildsUtils, 'execSpawnSync').returns(spawnSyncReturns);
+  const execReadFileSync = sinon.stub(BuildsUtils, 'execReadFileSync');
   execReadFileSync.onCall(0).returns(JSON.stringify(buildManifest1));
   execReadFileSync
     .onCall(1)
