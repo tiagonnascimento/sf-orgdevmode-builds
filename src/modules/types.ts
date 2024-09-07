@@ -22,6 +22,8 @@ export type Build = {
   apexScript?: string;
   command?: string;
   outputFormat?: string;
+  addTargetOrg?: boolean;
+  targetOrgFormat?: string;
 };
 
 export type Package = {
