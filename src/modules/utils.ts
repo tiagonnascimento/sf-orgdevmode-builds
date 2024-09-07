@@ -1,23 +1,53 @@
 /* eslint-disable no-console */
 import * as fs from 'node:fs';
-import { spawnSync, SpawnSyncReturns, SpawnSyncOptionsWithStringEncoding } from 'node:child_process';
+import { spawn, SpawnOptions } from 'node:child_process';
 import * as xml2js from 'xml2js';
 import { Package, PackageType } from './types.js';
 
 export default class BuildsUtils {
   /**
-   * Refactoring method only to be able to stub the child_process.spawnSync
+   * Create the child process and return a Promise to be enqueued by the caller
    *
-   * @param command - command to be executed
-   * @param args - array with args
-   * @param options - options as determined on execCommand function
+   * @param command command to be executed
+   * @param args array with arguments
+   * @param options SpawnOptions for this request
+   * @returns
    */
-  public static execSpawnSync(
+  public static async spawnPromise(
     command: string,
     args: string[],
-    options: SpawnSyncOptionsWithStringEncoding
-  ): SpawnSyncReturns<string> {
-    return spawnSync(command, args, options);
+    options: SpawnOptions
+  ): Promise<{ stdout: string; stderr: string }> {
+    return new Promise((resolve, reject) => {
+      const process = spawn(command, args, options);
+      let stdout = '';
+      let stderr = '';
+
+      process.stdout?.on('data', (data: Buffer) => {
+        console.log(data.toString());
+        stdout += data.toString();
+      });
+
+      process.stderr?.on('data', (data: Buffer) => {
+        console.error(data.toString());
+        stderr += data.toString();
+      });
+
+      process.on('close', (code) => {
+        if (code === 0) {
+          console.log('Command executed successfully');
+          resolve({ stdout, stderr });
+        } else {
+          console.error(`Process exited with code ${code ?? 'null or undefined'}`);
+          reject(new Error(`Process exited with code ${code ?? 'null or undefined'}`));
+        }
+      });
+
+      process.on('error', (error) => {
+        console.log(`Command failed with the following error: ${error.message}`);
+        reject(error);
+      });
+    });
   }
 
   /**
@@ -27,11 +57,12 @@ export default class BuildsUtils {
    * @param {*} args array with args
    * @param {*} workingFolder opcional
    */
-  public static execCommand(command: string, args: string[], workingFolder: string | null = null): void {
-    const options: SpawnSyncOptionsWithStringEncoding = {
-      encoding: 'utf-8',
-      maxBuffer: 1024 * 1024 * 10,
-    };
+  public static async execCommand(
+    command: string,
+    args: string[],
+    workingFolder: string | null = null
+  ): Promise<{ stdout: string; stderr: string }> {
+    const options: SpawnOptions = {};
 
     if (workingFolder) {
       options.cwd = workingFolder;
@@ -41,32 +72,7 @@ export default class BuildsUtils {
 
     console.log(`Executing command:  ${command} ${cmdArgs}`);
 
-    const spawn: SpawnSyncReturns<string> = BuildsUtils.execSpawnSync(command, args, options);
-
-    console.log(`Status of execution: ${spawn.status ?? '0'}`);
-    let spawnOut = spawn.stdout;
-    // se resposta for JSON do sfdx, tentando limpar ela removendo caracteres de quebra de linha (\n) que o SFDX CLI pode colocar
-    // na estrutura da resposta - para conseguirmos um print decente do resultado no log
-    // eu volto a parsear como JSON a string com os caracteres removidos para poder usar o stringify com formatação
-    try {
-      spawnOut = JSON.stringify(JSON.parse(spawnOut.replace(/\\n/g, '')), null, 2);
-    } catch (e) {
-      // não faz nada... o exception só significa que o stdout não é JSON - perfeitamente possível
-    }
-    console.log(`Output: ${spawnOut}`);
-
-    if (spawn.error ?? spawn.status !== 0) {
-      let errorMessage = 'Error executing command!';
-      if (spawn.error) {
-        errorMessage += spawn.error.toString();
-      }
-
-      if (spawn.stderr) {
-        errorMessage += ' ' + spawn.stderr.toString();
-      }
-      console.error(errorMessage);
-      throw new Error(errorMessage);
-    }
+    return BuildsUtils.spawnPromise(command, args, options);
   }
 
   /**

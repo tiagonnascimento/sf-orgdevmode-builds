@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import * as ChildProcess from 'node:child_process';
 import { expect, test } from '@oclif/test';
 import pkg from 'sinon';
 const { stub } = pkg;
@@ -70,16 +69,12 @@ describe('BuildsDeploy', () => {
     ],
   };
 
-  const spawnSyncReturns: ChildProcess.SpawnSyncReturns<string> = {
-    pid: 1234,
-    output: ['Stub executed successfully', null],
-    stdout: 'Stub executed successfully',
-    status: 0,
-    stderr: '',
-    signal: null,
-  };
-
-  const execSpawnSync = stub(BuildsUtils, 'execSpawnSync').returns(spawnSyncReturns);
+  const execSpawnSync = stub(BuildsUtils, 'spawnPromise').returns(
+    new Promise((resolve, reject) => {
+      const cmdReturn: { stdout: string; stderr: string } = { stdout: 'stdout', stderr: 'stderr' };
+      resolve(cmdReturn);
+    })
+  );
   const execReadFileSync = stub(BuildsUtils, 'execReadFileSync');
   execReadFileSync.onCall(0).returns(JSON.stringify(buildManifest1));
   execReadFileSync

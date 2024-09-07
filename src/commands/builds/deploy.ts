@@ -63,7 +63,7 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
 
     if (!userNameOrAlias) {
       try {
-        Commands.auth(authParms);
+        await Commands.auth(authParms);
       } catch (error) {
         console.error('Error while trying to authenticate on org');
         console.error(error);
@@ -76,11 +76,11 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
       console.log(' --- deploy --- ');
       for (const build of builds) {
         if (build.type === 'metadata' && !build.enableTracking) {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          Commands.disableTracking(userNameOrAlias!);
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, no-await-in-loop
+          await Commands.disableTracking(userNameOrAlias!);
         }
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        Commands.deploy(build, userNameOrAlias!);
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, no-await-in-loop
+        await Commands.deploy(build, userNameOrAlias!);
       }
     } catch (error) {
       console.error('Error trying to run the build');

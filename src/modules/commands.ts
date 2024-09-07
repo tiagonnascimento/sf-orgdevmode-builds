@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable no-console */
 import { AuthParameters, Build } from './types.js';
 import BuildsUtils from './utils.js';
 
 export default class Commands {
-  public static auth(authParms: AuthParameters): void {
+  public static async auth(authParms: AuthParameters): Promise<{ stdout: string; stderr: string }> {
     console.log(' --- auth --- ');
     const authCommand = 'sf' as string;
     const authCommandArgs: string[] = [];
@@ -34,10 +35,10 @@ export default class Commands {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     authCommandArgs.push(authParms.username!);
 
-    BuildsUtils.execCommand(authCommand, authCommandArgs);
+    return BuildsUtils.execCommand(authCommand, authCommandArgs);
   }
 
-  public static disableTracking(username: string): void {
+  public static async disableTracking(username: string): Promise<{ stdout: string; stderr: string }> {
     console.log(' --- disabling source tracking on target sandbox --- ');
     const configCommand = 'sf' as string;
     const configCommandArgs: string[] = [];
@@ -47,10 +48,10 @@ export default class Commands {
     configCommandArgs.push('--target-org');
     configCommandArgs.push(username);
 
-    BuildsUtils.execCommand(configCommand, configCommandArgs);
+    return BuildsUtils.execCommand(configCommand, configCommandArgs);
   }
 
-  public static deploy(build: Build, username: string): void {
+  public static async deploy(build: Build, username: string): Promise<{ stdout: string; stderr: string }> {
     console.log(` --- build type: ${build.type} --- `);
 
     let buildCommand: string;
@@ -141,6 +142,6 @@ export default class Commands {
       throw new Error(`Build type not supported ${build.type}`);
     }
 
-    BuildsUtils.execCommand(buildCommand, buildCommandArgs);
+    return BuildsUtils.execCommand(buildCommand, buildCommandArgs);
   }
 }
