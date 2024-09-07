@@ -101,7 +101,9 @@ Each release is a different release. It may be necessary to perform deployments 
     },
     {
       "type": "command",
-      "command": "sf --version"
+      "command": "vlocity --nojob installVlocityInitial",
+      "includeTargetOrg": true,
+      "targetOrgFormat": "-sfdx.username"
     }
   ]
 }
@@ -119,7 +121,7 @@ Some considerations regarding this configuration file:
 - For other types of deployments:
   - If `type` is `datapack`, the `manifestFile` field is required;
   - If `type` is `anonymousApex`, the `apexScript` field is required;
-  - If `type` is `command`, the `command` field is required - this could be any shell command that you want to execute.
+  - If `type` is `command`, the `command` field is required - this could be any shell command that you want to execute. There is also the possibility to instruct the plugin to include the connected target-org in any specific format that you want using for that the two optional parameters `includeTargetOrg` (default to `false`) and `targetOrgFormat` (default to `--target-org`).
 
 ## Files: package.xml
 

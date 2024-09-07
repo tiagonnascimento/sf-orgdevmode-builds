@@ -137,6 +137,11 @@ export default class Commands {
       const [head, ...tail] = build.command.split(' ');
       buildCommand = head;
       buildCommandArgs = tail;
+      if (build.addTargetOrg) {
+        const targetOrgFormat = build.targetOrgFormat ?? '--target-org';
+        buildCommandArgs.push(targetOrgFormat);
+        buildCommandArgs.push(username);
+      }
     } else {
       console.error(`Build type not supported ${build.type}`);
       throw new Error(`Build type not supported ${build.type}`);

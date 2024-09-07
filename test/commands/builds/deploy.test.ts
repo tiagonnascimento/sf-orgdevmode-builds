@@ -32,7 +32,9 @@ describe('BuildsDeploy', () => {
       },
       {
         type: 'command',
-        command: 'sf --version',
+        command: 'vlocity --nojob installVlocityInitial',
+        addTargetOrg: true,
+        targetOrgFormat: '-sfdx.username',
       },
     ],
   };
@@ -113,7 +115,7 @@ describe('BuildsDeploy', () => {
       expect(ctx.stdout).to.contain('sf project deploy start');
       expect(ctx.stdout).to.contain('vlocity -sfdx.username');
       expect(ctx.stdout).to.contain('sf apex run');
-      expect(ctx.stdout).to.contain('sf --version');
+      expect(ctx.stdout).to.contain('vlocity --nojob installVlocityInitial -sfdx.username user@login');
       expect(execSpawnSync.calledOnce).to.be.false;
       expect(execSpawnSync.firstCall.args[0]).to.equal('sf'); // auth
       expect(execSpawnSync.secondCall.args[0]).to.equal('sf'); // deploy
