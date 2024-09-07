@@ -1,3 +1,24 @@
+# [1.5.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.4.3...1.5.0) (2024-09-07)
+
+
+### Bug Fixes
+
+* adjusting test cases after refactoring ([2343710](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/23437107458caa9a3df1e29d4dd853ecb986bda6))
+* **deps:** bump tslib from 2.6.2 to 2.7.0 ([50c96a4](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/50c96a4e2679a9410238a77726ff617784cd0234))
+
+
+### Features
+
+* adding github cli to the standard docker image dockerfile ([ff79270](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/ff79270c6239294eceb5b23218d2a150ae3af908))
+* adding sfdx-scanner to the standard docker image ([ba53db7](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/ba53db796b51c286bb4182f45526797047a4ba41))
+* aditional adjusts on module imports ([b7258d8](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/b7258d876f8c5ada276fccaa8655e63f758d28a7))
+* bumping dependencies ([fe9fe2f](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/fe9fe2fb6dee5f6aba73120904e99a7e3ed627c9))
+* dependencies updates ([fc133f9](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/fc133f97506a3cd4105e7a8adbe258022297e22a))
+* separating files into modules ([bcbcadc](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/bcbcadc6be8d23677ef3a0dab08e0b56afde44c9))
+* updating component from using spawnSync to spawn ([38362c7](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/38362c72ea1b1482bc03985a9621873ea4636c6e))
+
+
+
 ## [1.4.3](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.4.2...1.4.3) (2024-06-12)
 
 
@@ -40,24 +61,6 @@
 ### Features
 
 * updating format for RunSpecifiedTest classes ([a9c0a94](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/a9c0a94eefc46d9b73d3aa3c51d4f88dc1d85e96))
-
-
-
-# [1.2.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.1.0...1.2.0) (2024-04-30)
-
-
-### Bug Fixes
-
-* **deps:** bump @oclif/core from 2.8.7 to 2.9.3 ([280684c](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/280684c1c523a9fcb66a4f12bada32ca45b2e938))
-* **deps:** bump @salesforce/kit from 3.0.3 to 3.0.6 ([c03de18](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/c03de189d0ad19fed72d38880446b5ffb63aed18))
-* removing NUTs scripts ([f41744d](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/f41744d0e506656b814d8c7aa901e7301849a9c0))
-
-
-### Features
-
-* added SFI registry entries to enable local "compile" of LWC Omniscript/Flexcards ([1efaa3a](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/1efaa3afada38ba5a46ddf6019107d350f500736))
-* adding the possibility to disable source tracking before deploy ([fb8d790](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/fb8d790dac6969f3de7e17d5d2a18b93f00fd476))
-* updating SF cli to latest verson and removing sfdx that's now contained on sf cli ([b98e491](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/b98e4913597ce14c9ff4bdeaa6058d79d4bdcaff))
 
 
 
