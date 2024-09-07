@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as ChildProcess from 'node:child_process';
 import { expect, test } from '@oclif/test';
-import * as sinon from 'sinon';
-
+import pkg from 'sinon';
+const { stub } = pkg;
 // Import the BuildsDeploy command class
-import BuildsDeploy from '../../../src/commands/builds/deploy';
-import BuildsUtils from '../../../src/modules/utils';
+import BuildsDeploy from '../../../src/commands/builds/deploy.ts';
+import BuildsUtils from '../../../src/modules/utils.ts';
 
 describe('BuildsDeploy', () => {
   const buildManifest1 = {
@@ -78,8 +79,8 @@ describe('BuildsDeploy', () => {
     signal: null,
   };
 
-  const execSpawnSync = sinon.stub(BuildsUtils, 'execSpawnSync').returns(spawnSyncReturns);
-  const execReadFileSync = sinon.stub(BuildsUtils, 'execReadFileSync');
+  const execSpawnSync = stub(BuildsUtils, 'execSpawnSync').returns(spawnSyncReturns);
+  const execReadFileSync = stub(BuildsUtils, 'execReadFileSync');
   execReadFileSync.onCall(0).returns(JSON.stringify(buildManifest1));
   execReadFileSync
     .onCall(1)

@@ -1,5 +1,5 @@
 module.exports = {
-  extends: '../.eslintrc.js',
+  extends: '../.eslintrc.cjs',
   // Allow describe and it
   env: { mocha: true },
   rules: {
@@ -14,5 +14,6 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
     // Easily return a promise in a mocked method.
     '@typescript-eslint/require-await': 'off',
+    header: 'off',
   },
 };

@@ -2,7 +2,7 @@
 import * as fs from 'node:fs';
 import { spawnSync, SpawnSyncReturns, SpawnSyncOptionsWithStringEncoding } from 'node:child_process';
 import * as xml2js from 'xml2js';
-import { Package, PackageType } from './types';
+import { Package, PackageType } from './types.ts';
 
 export default class BuildsUtils {
   /**
@@ -43,7 +43,7 @@ export default class BuildsUtils {
 
     const spawn: SpawnSyncReturns<string> = BuildsUtils.execSpawnSync(command, args, options);
 
-    console.log(`Status of execution: ${spawn.status}`);
+    console.log(`Status of execution: ${spawn.status ?? '0'}`);
     let spawnOut = spawn.stdout;
     // se resposta for JSON do sfdx, tentando limpar ela removendo caracteres de quebra de linha (\n) que o SFDX CLI pode colocar
     // na estrutura da resposta - para conseguirmos um print decente do resultado no log
@@ -55,10 +55,10 @@ export default class BuildsUtils {
     }
     console.log(`Output: ${spawnOut}`);
 
-    if (spawn.error || spawn.status !== 0) {
+    if (spawn.error ?? spawn.status !== 0) {
       let errorMessage = 'Error executing command!';
       if (spawn.error) {
-        errorMessage += spawn.error;
+        errorMessage += spawn.error.toString();
       }
 
       if (spawn.stderr) {
@@ -88,6 +88,7 @@ export default class BuildsUtils {
   public static parsePackageXml(manifestPath: string): Package {
     const xmlString: string = BuildsUtils.execReadFileSync(manifestPath);
     let xmlJson!: Package;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     xml2js.parseString(xmlString, (err, res) => {
       if (err) {
         console.error(`Error parsing ${manifestPath}`);

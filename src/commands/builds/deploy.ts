@@ -1,11 +1,12 @@
+/* eslint-disable sf-plugin/run-matches-class-type */
 /* eslint-disable no-console */
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
-import BuildsUtil from '../../modules/utils';
-import Commands from '../../modules/commands';
-import { AuthParameters, Build, BuildsDeployResult } from '../../modules/types';
+import BuildsUtil from '../../modules/utils.ts';
+import Commands from '../../modules/commands.ts';
+import { AuthParameters, Build, BuildsDeployResult } from '../../modules/types.ts';
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('sf-orgdevmode-builds', 'builds.deploy');
 
 export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {

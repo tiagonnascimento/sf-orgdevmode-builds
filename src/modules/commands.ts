@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import { AuthParameters, Build } from './types';
-import BuildsUtils from './utils';
+import { AuthParameters, Build } from './types.ts';
+import BuildsUtils from './utils.ts';
 
 export default class Commands {
   public static auth(authParms: AuthParameters): void {
