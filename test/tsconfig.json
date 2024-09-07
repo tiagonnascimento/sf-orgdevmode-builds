@@ -1,7 +1,10 @@
 {
-  "extends": "@salesforce/dev-config/tsconfig-test-strict",
-  "include": ["./**/*.ts"],
+  "extends": "@salesforce/dev-config/tsconfig-test-strict-esm",
   "compilerOptions": {
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
+  },
+  "include": ["../test/**/*.ts", "../src/**/*.ts"]
 }
