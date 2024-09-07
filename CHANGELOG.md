@@ -1,3 +1,12 @@
+# [1.6.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.5.0...1.6.0) (2024-09-07)
+
+
+### Features
+
+* allowing to send target-org to command build type ([bb1ce18](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/bb1ce18b096a1a4f8f61f7ce198061aab40adc2e))
+
+
+
 # [1.5.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.4.3...1.5.0) (2024-09-07)
 
 
@@ -46,21 +55,6 @@
 ### Features
 
 * adding outputFormat parameter on buildfile and fixing the bug with test classes args ([be53759](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/be53759e546f088e0ecd64c47b42e71c00e4422c))
-
-
-
-# [1.3.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.2.0...1.3.0) (2024-05-27)
-
-
-### Bug Fixes
-
-* **deps:** bump @salesforce/kit from 3.0.6 to 3.1.2 ([2d3ffcc](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/2d3ffcca8c79009c7168877963d8b594cca18807))
-* updating imports as per the new eslint config ([6b99108](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/6b9910813434235927c17cfab12ede08d5aca03e))
-
-
-### Features
-
-* updating format for RunSpecifiedTest classes ([a9c0a94](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/a9c0a94eefc46d9b73d3aa3c51d4f88dc1d85e96))
 
 
 
