@@ -2,7 +2,7 @@
 import * as fs from 'node:fs';
 import { spawnSync, SpawnSyncReturns, SpawnSyncOptionsWithStringEncoding } from 'node:child_process';
 import * as xml2js from 'xml2js';
-import { Package, PackageType } from './types.ts';
+import { Package, PackageType } from './types.js';
 
 export default class BuildsUtils {
   /**

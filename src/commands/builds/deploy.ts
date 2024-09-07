@@ -2,9 +2,9 @@
 /* eslint-disable no-console */
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
-import BuildsUtil from '../../modules/utils.ts';
-import Commands from '../../modules/commands.ts';
-import { AuthParameters, Build, BuildsDeployResult } from '../../modules/types.ts';
+import BuildsUtil from '../../modules/utils.js';
+import Commands from '../../modules/commands.js';
+import { AuthParameters, Build, BuildsDeployResult } from '../../modules/types.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('sf-orgdevmode-builds', 'builds.deploy');

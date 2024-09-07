@@ -7,8 +7,8 @@ import { expect, test } from '@oclif/test';
 import pkg from 'sinon';
 const { stub } = pkg;
 // Import the BuildsDeploy command class
-import BuildsDeploy from '../../../src/commands/builds/deploy.ts';
-import BuildsUtils from '../../../src/modules/utils.ts';
+import BuildsDeploy from '../../../src/commands/builds/deploy.js';
+import BuildsUtils from '../../../src/modules/utils.js';
 
 describe('BuildsDeploy', () => {
   const buildManifest1 = {
