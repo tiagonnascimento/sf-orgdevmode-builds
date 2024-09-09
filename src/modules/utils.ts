@@ -13,30 +13,22 @@ export default class BuildsUtils {
    * @param options SpawnOptions for this request
    * @returns
    */
-  public static async spawnPromise(
-    command: string,
-    args: string[],
-    options: SpawnOptions
-  ): Promise<{ stdout: string; stderr: string }> {
+  public static async spawnPromise(command: string, args: string[], options: SpawnOptions): Promise<void> {
     return new Promise((resolve, reject) => {
       const process = spawn(command, args, options);
-      let stdout = '';
-      let stderr = '';
 
       process.stdout?.on('data', (data: Buffer) => {
         console.log(data.toString());
-        stdout += data.toString();
       });
 
       process.stderr?.on('data', (data: Buffer) => {
         console.error(data.toString());
-        stderr += data.toString();
       });
 
       process.on('close', (code) => {
         if (code === 0) {
           console.log('Command executed successfully');
-          resolve({ stdout, stderr });
+          resolve();
         } else {
           console.error(`Process exited with code ${code ?? 'null or undefined'}`);
           reject(new Error(`Process exited with code ${code ?? 'null or undefined'}`));
@@ -57,11 +49,7 @@ export default class BuildsUtils {
    * @param {*} args array with args
    * @param {*} workingFolder opcional
    */
-  public static async execCommand(
-    command: string,
-    args: string[],
-    workingFolder: string | null = null
-  ): Promise<{ stdout: string; stderr: string }> {
+  public static async execCommand(command: string, args: string[], workingFolder: string | null = null): Promise<void> {
     const options: SpawnOptions = {};
 
     if (workingFolder) {

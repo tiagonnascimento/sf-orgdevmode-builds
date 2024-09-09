@@ -73,8 +73,7 @@ describe('BuildsDeploy', () => {
 
   const execSpawnSync = stub(BuildsUtils, 'spawnPromise').returns(
     new Promise((resolve, reject) => {
-      const cmdReturn: { stdout: string; stderr: string } = { stdout: 'stdout', stderr: 'stderr' };
-      resolve(cmdReturn);
+      resolve();
     })
   );
   const execReadFileSync = stub(BuildsUtils, 'execReadFileSync');

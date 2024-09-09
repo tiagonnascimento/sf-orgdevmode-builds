@@ -4,7 +4,7 @@ import { AuthParameters, Build } from './types.js';
 import BuildsUtils from './utils.js';
 
 export default class Commands {
-  public static async auth(authParms: AuthParameters): Promise<{ stdout: string; stderr: string }> {
+  public static async auth(authParms: AuthParameters): Promise<void> {
     console.log(' --- auth --- ');
     const authCommand = 'sf' as string;
     const authCommandArgs: string[] = [];
@@ -38,7 +38,7 @@ export default class Commands {
     return BuildsUtils.execCommand(authCommand, authCommandArgs);
   }
 
-  public static async disableTracking(username: string): Promise<{ stdout: string; stderr: string }> {
+  public static async disableTracking(username: string): Promise<void> {
     console.log(' --- disabling source tracking on target sandbox --- ');
     const configCommand = 'sf' as string;
     const configCommandArgs: string[] = [];
@@ -51,7 +51,7 @@ export default class Commands {
     return BuildsUtils.execCommand(configCommand, configCommandArgs);
   }
 
-  public static async deploy(build: Build, username: string): Promise<{ stdout: string; stderr: string }> {
+  public static async deploy(build: Build, username: string): Promise<void> {
     console.log(` --- build type: ${build.type} --- `);
 
     let buildCommand: string;
