@@ -1,3 +1,12 @@
+## [1.6.1](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.6.0...1.6.1) (2024-09-09)
+
+
+### Bug Fixes
+
+* removing stdout and stderr from spawnPromise to avoid memory allocation increasing ([80b0e11](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/80b0e11e93fe84f930903760f0bf5b4a7d48f665))
+
+
+
 # [1.6.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.5.0...1.6.0) (2024-09-07)
 
 
@@ -46,15 +55,6 @@
 
 * bypassing husky installation if fails ([9324c5c](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/9324c5c2049c817a43833e72dd6c5b54e2ca3f0d))
 * **deps:** bump @oclif/core from 2.15.0 to 2.16.0 ([6856411](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/68564115dc304616466ea88bde907abba6814cea))
-
-
-
-# [1.4.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.3.0...1.4.0) (2024-05-28)
-
-
-### Features
-
-* adding outputFormat parameter on buildfile and fixing the bug with test classes args ([be53759](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/be53759e546f088e0ecd64c47b42e71c00e4422c))
 
 
 
