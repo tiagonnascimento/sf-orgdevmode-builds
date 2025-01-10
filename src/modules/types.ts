@@ -11,6 +11,7 @@ export type AuthParameters = {
 
 export type Build = {
   type: string;
+  workingFolder?: string;
   manifestFile?: string;
   preDestructiveChanges?: string;
   postDestructiveChanges?: string;

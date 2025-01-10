@@ -93,6 +93,7 @@ Each release is a different release. It may be necessary to perform deployments 
     },
     {
       "type": "datapack",
+      "workingFolder":"vlocitydatapacks",
       "manifestFile": "manifest/sfi-package.yaml"
     },
     {
