@@ -147,6 +147,6 @@ export default class Commands {
       throw new Error(`Build type not supported ${build.type}`);
     }
 
-    return BuildsUtils.execCommand(buildCommand, buildCommandArgs);
+    return BuildsUtils.execCommand(buildCommand, buildCommandArgs, build.workingFolder);
   }
 }
