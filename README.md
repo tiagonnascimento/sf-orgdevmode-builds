@@ -93,7 +93,7 @@ Each release is a different release. It may be necessary to perform deployments 
     },
     {
       "type": "datapack",
-      "workingFolder":"vlocitydatapacks",
+      "workingFolder": "vlocitydatapacks",
       "manifestFile": "manifest/sfi-package.yaml"
     },
     {
@@ -119,8 +119,10 @@ Some considerations regarding this configuration file:
   - If the `testLevel` is not specified, the script will deploy using `RunLocalTests`;
   - Normally on your pipeline sandboxes you will deploy using `enableTracking` as a `false` - which is the default value. If you want to use source tracking you can use this value as `true`;
   - `outputFormat` is an optional parameter and the only acceptable value is json. If informed, the `--json` will be append in the `sf project deploy start` command. Please, be aware that if the deployment is big, this output format could impact the maxBuffer size of the command output and fail the process.
+- For builds with the `type` parameter set to `datapack`:
+  - The `manifestFile` field is required;
+  - `workingFolder` is optional but is useful in some situations that the VBT will fail to generate and deploy LWC components due to not recognizing other metadata types that are present in your sfdx project package directories - in these situations VBT will throw the error `UnexpectedFileFound: Unexpected file found in package directory: PATH_TO_METADATA`. Therefore setting the `workingFolder` parameter to some other directory will execute the `vlocity packDeploy` command in another subfolder therefore making it a completly new sfdx project.
 - For other types of deployments:
-  - If `type` is `datapack`, the `manifestFile` field is required;
   - If `type` is `anonymousApex`, the `apexScript` field is required;
   - If `type` is `command`, the `command` field is required - this could be any shell command that you want to execute. There is also the possibility to instruct the plugin to include the connected target-org in any specific format that you want using for that the two optional parameters `includeTargetOrg` (default to `false`) and `targetOrgFormat` (default to `--target-org`).
 
