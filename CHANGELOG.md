@@ -1,3 +1,13 @@
+# [1.7.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.6.1...1.7.0) (2025-01-11)
+
+
+### Bug Fixes
+
+* **deps:** bump @oclif/core from 4.0.20 to 4.0.27 ([2420d03](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/2420d034108494d3b2d9c214c4a6f7eaf4af0464))
+* **deps:** bump @oclif/core from 4.0.27 to 4.2.2 ([37a9de0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/37a9de08d3983904e73f4550b64097bc92d8cc99))
+
+
+
 ## [1.6.1](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.6.0...1.6.1) (2024-09-09)
 
 
@@ -45,16 +55,6 @@
 * removing pinst from dependencies ([d12d798](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/d12d7987e914a6c20b12c8ddb85b2591ab1546cb))
 * removing pinst from the dependencies ([59aa954](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/59aa954bb9b2dc87523ce94c9c55b39a2b35045c))
 * trying a different approach for postinstall ([20e4c48](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/20e4c48764891a44c8e6e285e209cd82dbb61c5a))
-
-
-
-## [1.4.2](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.4.0...1.4.2) (2024-06-12)
-
-
-### Bug Fixes
-
-* bypassing husky installation if fails ([9324c5c](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/9324c5c2049c817a43833e72dd6c5b54e2ca3f0d))
-* **deps:** bump @oclif/core from 2.15.0 to 2.16.0 ([6856411](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/68564115dc304616466ea88bde907abba6814cea))
 
 
 
