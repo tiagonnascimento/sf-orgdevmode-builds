@@ -54,6 +54,7 @@ export default class BuildsUtils {
 
     if (workingFolder) {
       options.cwd = workingFolder;
+      options.shell = true;
     }
 
     const cmdArgs = args ? args.join(' ') : '';
