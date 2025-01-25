@@ -44,3 +44,4 @@ node_modules
 .idea
 
 oclif.manifest.json
+.sfdx/

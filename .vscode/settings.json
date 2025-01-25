@@ -1,19 +1,18 @@
 {
   "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "**/Thumbs.db": true,
+    ".mule": true,
     "**/.apivcs": true,
-    "**/.gitignore": true,
     "**/.designer.json": true,
-    "**/.exchange.xml": true,
-    "**/.vscode": true,
-    "**/.mvn": true,
+    "**/.DS_Store": true,
     "**/.exchange_modules_tmp": true,
-    ".mule": true
+    "**/.exchange.xml": true,
+    "**/.git": true,
+    "**/.hg": true,
+    "**/.mvn": true,
+    "**/.svn": true,
+    "**/.vscode": true,
+    "**/CVS": true,
+    "**/Thumbs.db": true
   },
   "search.exclude": {
     "**/lib": true,
