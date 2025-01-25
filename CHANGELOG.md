@@ -1,3 +1,12 @@
+## [1.7.1](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.7.0...1.7.1) (2025-01-25)
+
+
+### Bug Fixes
+
+* **deps:** bump @oclif/core from 4.2.2 to 4.2.4 ([214b10c](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/214b10c5184774e64ddeb008fa9913801c890514))
+
+
+
 # [1.7.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.6.1...1.7.0) (2025-01-11)
 
 
@@ -44,17 +53,6 @@
 * dependencies updates ([fc133f9](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/fc133f97506a3cd4105e7a8adbe258022297e22a))
 * separating files into modules ([bcbcadc](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/bcbcadc6be8d23677ef3a0dab08e0b56afde44c9))
 * updating component from using spawnSync to spawn ([38362c7](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/38362c72ea1b1482bc03985a9621873ea4636c6e))
-
-
-
-## [1.4.3](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.4.2...1.4.3) (2024-06-12)
-
-
-### Bug Fixes
-
-* removing pinst from dependencies ([d12d798](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/d12d7987e914a6c20b12c8ddb85b2591ab1546cb))
-* removing pinst from the dependencies ([59aa954](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/59aa954bb9b2dc87523ce94c9c55b39a2b35045c))
-* trying a different approach for postinstall ([20e4c48](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/20e4c48764891a44c8e6e285e209cd82dbb61c5a))
 
 
 
