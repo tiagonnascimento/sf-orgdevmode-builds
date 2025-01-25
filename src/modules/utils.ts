@@ -50,7 +50,7 @@ export default class BuildsUtils {
    * @param {*} workingFolder opcional
    */
   public static async execCommand(command: string, args: string[], workingFolder: string | null = null): Promise<void> {
-    const options: SpawnOptions = {};
+    const options: SpawnOptions = {shell: true};
 
     if (workingFolder) {
       options.cwd = workingFolder;
