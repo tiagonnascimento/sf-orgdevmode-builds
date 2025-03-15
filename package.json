@@ -13,7 +13,7 @@
     "@oclif/test": "^2.5.6",
     "@salesforce/cli-plugins-testkit": "^5.3.39",
     "@salesforce/dev-scripts": "^10",
-    "@types/node": "^22.10.10",
+    "@types/node": "^22.13.10",
     "@types/xml2js": "^0.4.14",
     "@typescript-eslint/utils": "^8.21.0",
     "eslint": "^8.56.0",
