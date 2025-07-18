@@ -26,6 +26,10 @@ URL for the instance you are going to connect. .
 
 Path for the JWT private key file that are going to sign the JWT.
 
+# flags.initial-step.summary
+
+Integer of the initial step to start the build. Default = 0.
+
 # flags.username.summary
 
 Username used to create the JWT.

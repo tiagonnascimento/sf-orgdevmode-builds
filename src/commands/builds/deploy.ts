@@ -18,28 +18,33 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
     buildfile: Flags.file({
       summary: messages.getMessage('flags.buildfile.summary'),
       char: 'b',
-      required: true,
+      required: true
     }),
     'target-org': Flags.string({
       summary: messages.getMessage('flags.target-org.summary'),
-      char: 't',
+      char: 't'
     }),
     'client-id': Flags.string({
       summary: messages.getMessage('flags.client-id.summary'),
-      char: 'i',
+      char: 'i'
     }),
     'instance-url': Flags.url({
       summary: messages.getMessage('flags.instance-url.summary'),
-      char: 'l',
+      char: 'l'
     }),
     'jwt-key-file': Flags.file({
       summary: messages.getMessage('flags.jwt-key-file.summary'),
-      char: 'f',
+      char: 'f'
+    }),
+    'initial-step': Flags.integer({
+      summary: messages.getMessage('flags.initial-step.summary'),
+      char: 's',
+      min: 0
     }),
     username: Flags.string({
       summary: messages.getMessage('flags.username.summary'),
-      char: 'u',
-    }),
+      char: 'u'
+    })
   };
 
   public async run(): Promise<BuildsDeployResult> {
@@ -71,16 +76,24 @@ export default class BuildsDeploy extends SfCommand<BuildsDeployResult> {
       }
       userNameOrAlias = authParms.username;
     }
-
+    
+    const initialStep = flags['initial-step'] ?? 0;
+    console.log(' --- initial-step: ' + initialStep +' --- ');
     try {
       console.log(' --- deploy --- ');
+      let currentStep = 0;
       for (const build of builds) {
+        if (currentStep < initialStep){
+          currentStep++;
+          continue;
+        }
         if (build.type === 'metadata' && !build.enableTracking) {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, no-await-in-loop
           await Commands.disableTracking(userNameOrAlias!);
         }
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, no-await-in-loop
         await Commands.deploy(build, userNameOrAlias!);
+        currentStep++;
       }
     } catch (error) {
       console.error('Error trying to run the build');
