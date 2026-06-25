@@ -1,3 +1,7 @@
+## [1.7.3](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.7.2...1.7.3) (2026-06-25)
+
+
+
 ## [1.7.2](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.7.1...1.7.2) (2025-07-19)
 
 
@@ -32,15 +36,6 @@
 ### Bug Fixes
 
 * removing stdout and stderr from spawnPromise to avoid memory allocation increasing ([80b0e11](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/80b0e11e93fe84f930903760f0bf5b4a7d48f665))
-
-
-
-# [1.6.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.5.0...1.6.0) (2024-09-07)
-
-
-### Features
-
-* allowing to send target-org to command build type ([bb1ce18](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/bb1ce18b096a1a4f8f61f7ce198061aab40adc2e))
 
 
 
