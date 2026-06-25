@@ -45,3 +45,5 @@ node_modules
 
 oclif.manifest.json
 .sfdx/
+# Local Claude Code settings (personal, not shared)
+.claude/settings.local.json

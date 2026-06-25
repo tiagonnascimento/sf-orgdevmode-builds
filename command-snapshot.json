@@ -1,0 +1,20 @@
+[
+  {
+    "alias": [],
+    "command": "builds:deploy",
+    "flagAliases": [],
+    "flagChars": ["b", "f", "i", "l", "s", "t", "u"],
+    "flags": [
+      "buildfile",
+      "client-id",
+      "flags-dir",
+      "initial-step",
+      "instance-url",
+      "json",
+      "jwt-key-file",
+      "target-org",
+      "username"
+    ],
+    "plugin": "sf-orgdevmode-builds"
+  }
+]

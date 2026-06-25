@@ -1,0 +1,139 @@
+{
+  "$ref": "#/definitions/Buildfile",
+  "definitions": {
+    "Buildfile": {
+      "type": "object",
+      "properties": {
+        "builds": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "metadata"
+                  },
+                  "manifestFile": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "preDestructiveChanges": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "postDestructiveChanges": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "testLevel": {
+                    "type": "string",
+                    "enum": ["NoTestRun", "RunSpecifiedTests", "RunLocalTests", "RunAllTestsInOrg"]
+                  },
+                  "classPath": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "enableTracking": {
+                    "type": "boolean"
+                  },
+                  "ignoreWarnings": {
+                    "type": "boolean"
+                  },
+                  "timeout": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^\\d+$"
+                      }
+                    ]
+                  },
+                  "outputFormat": {
+                    "type": "string",
+                    "enum": ["json"]
+                  },
+                  "workingFolder": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": ["type", "manifestFile"],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "datapack"
+                  },
+                  "manifestFile": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "workingFolder": {
+                    "$ref": "#/definitions/Buildfile/properties/builds/items/anyOf/0/properties/workingFolder"
+                  }
+                },
+                "required": ["type", "manifestFile"],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "anonymousApex"
+                  },
+                  "apexScript": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "workingFolder": {
+                    "$ref": "#/definitions/Buildfile/properties/builds/items/anyOf/0/properties/workingFolder"
+                  }
+                },
+                "required": ["type", "apexScript"],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "command"
+                  },
+                  "command": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "addTargetOrg": {
+                    "type": "boolean"
+                  },
+                  "targetOrgFormat": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "workingFolder": {
+                    "$ref": "#/definitions/Buildfile/properties/builds/items/anyOf/0/properties/workingFolder"
+                  }
+                },
+                "required": ["type", "command"],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["builds"],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
