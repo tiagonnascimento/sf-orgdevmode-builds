@@ -2,26 +2,31 @@
   "name": "sf-orgdevmode-builds",
   "description": "A sf plugin enabling deploy of releases that requires multi steps in order to be deployed. It supports deploy of metadata, datapacks (SFI) and shell commnads. ",
   "version": "1.7.2",
+  "resolutions": {
+    "@oclif/core": "^4.11.4"
+  },
   "dependencies": {
-    "@oclif/core": "^4",
-    "@salesforce/core": "^7.2.0",
-    "@salesforce/sf-plugins-core": "^10.0.0",
-    "xml2js": "^0.6.2"
+    "@oclif/core": "^4.11.4",
+    "@salesforce/core": "^8.31.1",
+    "@salesforce/kit": "^3.2.6",
+    "@salesforce/sf-plugins-core": "^12",
+    "cross-spawn": "^7.0.6",
+    "string-argv": "^0.3.2",
+    "xml2js": "^0.6.2",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@oclif/plugin-command-snapshot": "^5.3.4",
-    "@oclif/test": "^2.5.6",
-    "@salesforce/cli-plugins-testkit": "^5.3.39",
-    "@salesforce/dev-scripts": "^10",
-    "@types/node": "^22.16.5",
+    "@oclif/plugin-command-snapshot": "^5.3.27",
+    "@salesforce/cli-plugins-testkit": "^5.3.62",
+    "@salesforce/dev-scripts": "^11.0.4",
+    "@salesforce/plugin-command-reference": "^3.1.114",
+    "@types/cross-spawn": "^6.0.6",
     "@types/xml2js": "^0.4.14",
-    "@typescript-eslint/utils": "^8.37.0",
-    "eslint": "^8.56.0",
-    "eslint-plugin-sf-plugin": "^1.20.27",
-    "oclif": "^4.21.0",
-    "sinon": "10.0.0",
+    "eslint-plugin-sf-plugin": "^1.20.33",
+    "oclif": "^4.23.16",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.4",
+    "zod-to-json-schema": "^3.25.2"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -29,8 +34,10 @@
   "files": [
     "/lib",
     "/messages",
+    "/npm-shrinkwrap.json",
+    "/oclif.lock",
     "/oclif.manifest.json",
-    "/oclif.lock"
+    "/schemas"
   ],
   "keywords": [
     "force",
@@ -47,7 +54,9 @@
     "bin": "sf",
     "topicSeparator": " ",
     "devPlugins": [
-      "@oclif/plugin-help"
+      "@oclif/plugin-help",
+      "@oclif/plugin-command-snapshot",
+      "@salesforce/plugin-command-reference"
     ],
     "topics": {
       "builds": {
@@ -67,6 +76,7 @@
     "lint": "wireit",
     "postpack": "sf-clean --ignore-signing-artifacts",
     "prepack": "sf-prepack",
+    "schema:buildfile": "node --loader ts-node/esm --no-warnings=ExperimentalWarning scripts/generate-buildfile-schema.ts",
     "test": "wireit",
     "test:nuts": "echo NO NUTS for now",
     "test:only": "wireit",
@@ -148,7 +158,7 @@
       "output": []
     },
     "test:command-reference": {
-      "command": "node --loader ts-node/esm --no-warnings=ExperimentalWarning \"./bin/dev.js\" commandreference:generate --erroronwarnings",
+      "command": "node --loader ts-node/esm --no-warnings=ExperimentalWarning \"./bin/dev.js\" commandreference:generate --error-on-warnings",
       "files": [
         "src/**/*.ts",
         "messages/**",

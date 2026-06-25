@@ -1,7 +1,3 @@
 {
-  "check-coverage": true,
-  "lines": 70,
-  "statements": 75,
-  "functions": 70,
-  "branches": 50
+  "extends": "@salesforce/dev-config/nyc"
 }

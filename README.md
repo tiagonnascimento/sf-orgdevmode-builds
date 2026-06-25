@@ -31,33 +31,53 @@ sf plugins install sf-orgdevmode-builds@x.y.z
 
 <!-- commands -->
 
+- [`sf builds deploy`](#sf-builds-deploy)
+
 ## `sf builds deploy`
 
-With this command you can deploy multiple packages with just one command. You can indicate a buildfile containing the characteristics of this multi-step process and the command will act accordingly.
+Run a multi-step build against a Salesforce org from a buildfile.json.
 
 ```
 USAGE
-  $ sf builds deploy -b <value> [--json] [-t <value>] [-i <value>] [-l <value>] [-f <value>] [-u <value>]
+  $ sf builds deploy -b <value> [--json] [--flags-dir <value>] [-t <value>] [-i <value>] [-l <value>] [-f <value>]
+    [-s <value>] [-u <value>]
 
 FLAGS
-  -b, --buildfile=<value>     (required) Path for the buildfile.json describing the builds that neeeds to be applied.
-  -f, --jwt-key-file=<value>  Path for the JWT private key file that are going to sign the JWT. Optional if --target-org is informed
-  -i, --client-id=<value>     This is the client id or connected key from the connected app used to authenticate this command.
-  -l, --instance-url=<value>  URL for the instance you are going to connect.
-  -t, --target-org=<value>    Alias or username for the connected target org. If informed, there is no need to inform the other auth parms.
-  -u, --username=<value>      Username used to create the JWT.
+  -b, --buildfile=<value>     (required) Path to the buildfile.json describing the build steps to run.
+  -f, --jwt-key-file=<value>  Path to the private key file used to sign the JWT.
+  -i, --client-id=<value>     Consumer key (client id) of the connected app used for JWT authentication.
+  -l, --instance-url=<value>  URL of the instance to authenticate against. Defaults to https://login.salesforce.com.
+  -s, --initial-step=<value>  Zero-based index of the first step to run; earlier steps are skipped. Use it to resume a
+                              partially completed build. Default: 0.
+  -t, --target-org=<value>    Alias or username of the target org. When omitted, the command authenticates with the JWT
+                              flow using --client-id, --instance-url, --username and --jwt-key-file.
+  -u, --username=<value>      Username to authenticate as with the JWT flow.
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
+
+DESCRIPTION
+  Run a multi-step build against a Salesforce org from a buildfile.json.
+
+  Reads a buildfile.json describing an ordered list of build steps and executes them sequentially against a target org.
+  Each step is one of: metadata (sf project deploy start), datapack (Vlocity/Salesforce Industries packDeploy),
+  anonymousApex (sf apex run), or command (an arbitrary CLI command). Use this to deploy releases that require several
+  coordinated steps with a single command, identically on CI and locally.
 
 EXAMPLES
-  Execute a multi-step deploy as per buildfile.json on an already authenticated org:
+  Run a build against an already-authenticated org by alias:
 
-    $ sf builds deploy --buildfile buildfile.json --target-org orgAlias
+    $ sf builds deploy --buildfile manifest/buildfile.json --target-org my-sandbox
 
-  Authenticate and execute a multi-step deploy as per buildfile.json:
+  Authenticate with the JWT flow and run the build:
 
-    $ sf builds deploy --buildfile buildfile.json --client-id <client_id> --instance-url https://login.salesforce.com/ --username <username> --jwt-key-file server.key
+    $ sf builds deploy --buildfile manifest/buildfile.json --client-id <consumer-key> --username ci@example.com \
+      --jwt-key-file ./server.key
+
+  Resume a build starting from the third step (index 2):
+
+    $ sf builds deploy --buildfile manifest/buildfile.json --target-org my-sandbox --initial-step 2
 ```
 
 <!-- commandsstop -->
