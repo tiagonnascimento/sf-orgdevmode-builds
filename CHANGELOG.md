@@ -1,3 +1,26 @@
+# [2.0.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.7.2...2.0.0) (2026-06-25)
+
+
+* refactor!: state-of-the-art rework of builds deploy ([e205c7c](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/e205c7ca46b7d72809b14b8ed46ca6962f108eeb)), closes [#286](https://github.com/tiagonnascimento/sf-orgdevmode-builds/issues/286)
+
+
+### Reverts
+
+* Revert "chore(release): 1.7.3 [skip ci]" ([f5cf703](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/f5cf70333db8983a8f76e4d5e4a890210335d9c7))
+
+
+### BREAKING CHANGES
+
+* the `--json` result shape changed from `{ success: boolean }`
+to `{ stepsExecuted: number, totalSteps: number }`. Any automation parsing the
+previous `success` field must be updated. Internals were also restructured
+(domain/services/strategies) but the buildfile.json contract and the
+`sf builds deploy` flags are unchanged.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+
+
 ## [1.7.2](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.7.1...1.7.2) (2025-07-19)
 
 
@@ -32,15 +55,6 @@
 ### Bug Fixes
 
 * removing stdout and stderr from spawnPromise to avoid memory allocation increasing ([80b0e11](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/80b0e11e93fe84f930903760f0bf5b4a7d48f665))
-
-
-
-# [1.6.0](https://github.com/tiagonnascimento/sf-orgdevmode-builds/compare/1.5.0...1.6.0) (2024-09-07)
-
-
-### Features
-
-* allowing to send target-org to command build type ([bb1ce18](https://github.com/tiagonnascimento/sf-orgdevmode-builds/commit/bb1ce18b096a1a4f8f61f7ce198061aab40adc2e))
 
 
 
