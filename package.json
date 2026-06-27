@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@oclif/core": "^4.11.4",
-    "@salesforce/core": "^8.31.1",
+    "@salesforce/core": "^8.31.4",
     "@salesforce/kit": "^3.2.6",
     "@salesforce/sf-plugins-core": "^12",
     "cross-spawn": "^7.0.6",
